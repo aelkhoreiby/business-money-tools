@@ -46,19 +46,6 @@ export default function TermsPage() {
           استمرار استخدام الموقع بعد هذه التغييرات يعني استمرار قبول الشروط المحدثة.
         </p>
       </article>
-
-      <Footer />
     </main>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="site-footer">
-      <span>Business &amp; Money Tools</span>
-      <span>
-        <Link href="/privacy/">الخصوصية</Link> · <Link href="/terms/">الشروط</Link> · <Link href="/about/">عن الموقع</Link>
-      </span>
-    </footer>
   );
 }
