@@ -1,5 +1,12 @@
 import Script from "next/script";
 
+declare global {
+  interface Window {
+    dataLayer: unknown[];
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 const GA_ID = "G-643NCX31GG";
 
 export default function GoogleAnalytics() {
