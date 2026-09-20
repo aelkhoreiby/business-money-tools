@@ -91,23 +91,23 @@ export default function EcommerceProfitCalculatorPage() {
         </section>
 
         <section className="content-card related-tools">
-        <span className="section-kicker">أدوات مرتبطة</span>
-        <h2>كمّل التحليل بأدوات التجارة الإلكترونية</h2>
-        <div className="related-grid">
-          <a href="/tools/break-even-roas-calculator/">
-            <strong>حاسبة Break-even ROAS</strong>
-            <span>اعرف عتبة ROAS التي يحتاجها الطلب للوصول إلى التعادل.</span>
-          </a>
-          <a href="/tools/maximum-cac-calculator/">
-            <strong>حاسبة Maximum CAC</strong>
-            <span>اعرف أقصى CAC تستطيع تحمله قبل التعادل.</span>
-          </a>
-          <a href="/guides/ecommerce-profit-vs-roas/">
-            <strong>دليل الربح مقابل ROAS</strong>
-            <span>افهم لماذا لا يكفي ROAS وحده لقياس الربحية.</span>
-          </a>
-        </div>
-      </section>
+          <span className="section-kicker">قريبًا</span>
+          <h2>أدوات التجارة الإلكترونية القادمة</h2>
+          <div className="related-grid">
+            <div>
+              <strong>حاسبة Break-even ROAS</strong>
+              <span>اعرف عتبة ROAS التي يحتاجها الطلب للوصول إلى التعادل.</span>
+            </div>
+            <div>
+              <strong>حاسبة Maximum CAC</strong>
+              <span>اعرف أقصى CAC تستطيع تحمله قبل التعادل.</span>
+            </div>
+            <div>
+              <strong>دليل الربح مقابل ROAS</strong>
+              <span>شرح عملي للفرق بين ROAS والربح الحقيقي للطلب.</span>
+            </div>
+          </div>
+        </section>
 
       <section className="content-card faq-card">
           <span className="section-kicker">الأسئلة الشائعة</span>
