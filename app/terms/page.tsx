@@ -1,0 +1,64 @@
+import Link from "next/link";
+
+export const metadata = {
+  title: "الشروط والأحكام | Business & Money Tools",
+  description: "الشروط والأحكام العامة لاستخدام Business & Money Tools.",
+};
+
+export default function TermsPage() {
+  return (
+    <main className="page">
+      <nav className="top-nav" aria-label="التنقل الرئيسي">
+        <Link href="/" className="brand">Business &amp; Money Tools</Link>
+        <Link href="/tools/ecommerce-profit-calculator/" className="nav-tool">الأدوات</Link>
+      </nav>
+
+      <article className="content-card guide">
+        <span className="section-kicker">الشروط</span>
+        <h1>الشروط والأحكام</h1>
+        <p>
+          باستخدامك للموقع، أنت توافق على استخدام الأدوات والمحتوى لأغراض معلوماتية وعملية
+          وفق هذه الشروط.
+        </p>
+
+        <h2>طبيعة الأدوات</h2>
+        <p>
+          النتائج التي تظهرها الحاسبات تعتمد على البيانات التي تدخلها وعلى المعادلات
+          والافتراضات المعلنة في كل أداة. النتائج تقديرية ولا تمثل ضمانًا للربح أو نتيجة
+          مالية محددة.
+        </p>
+
+        <h2>القرارات المالية والتجارية</h2>
+        <p>
+          لا تُعد الأدوات أو الشروحات استشارة مالية أو قانونية أو ضريبية. يجب مراجعة
+          الأرقام واللوائح والظروف الخاصة بنشاطك قبل اتخاذ قرار مالي أو تجاري مهم.
+        </p>
+
+        <h2>الاستخدام المقبول</h2>
+        <p>
+          يجب استخدام الموقع بطريقة قانونية وألا تحاول تعطيل الخدمة أو إساءة استخدام
+          الأدوات أو الوصول غير المصرح به إلى الأنظمة المرتبطة بالموقع.
+        </p>
+
+        <h2>تغييرات الموقع</h2>
+        <p>
+          قد نضيف أدوات أو نعدل الحسابات أو المحتوى أو نوقف جزءًا من الموقع عند الحاجة.
+          استمرار استخدام الموقع بعد هذه التغييرات يعني استمرار قبول الشروط المحدثة.
+        </p>
+      </article>
+
+      <Footer />
+    </main>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="site-footer">
+      <span>Business &amp; Money Tools</span>
+      <span>
+        <Link href="/privacy/">الخصوصية</Link> · <Link href="/terms/">الشروط</Link> · <Link href="/about/">عن الموقع</Link>
+      </span>
+    </footer>
+  );
+}
