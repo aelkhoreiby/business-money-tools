@@ -38,10 +38,12 @@ export default function Home() {
     const margin = netRevenue > 0 ? (profit / netRevenue) * 100 : 0;
     const maxCac = netRevenue - v.productCost - v.shipping - v.paymentFee;
     const breakEvenRoas =
-      maxCac > 0 && v.sellingPrice > 0 ? v.sellingPrice / maxCac : 0;
+      maxCac > 0 && revenue > 0 ? revenue / maxCac : 0;
     const breakEvenPrice =
       1 - v.returnsRate / 100 > 0
-        ? (v.productCost + v.shipping + v.paymentFee + v.cac) / (1 - v.returnsRate / 100)
+        ? (v.productCost + v.shipping + v.paymentFee + v.cac) /
+            (1 - v.returnsRate / 100) +
+          v.discount
         : 0;
 
     return { profit, margin, maxCac, breakEvenRoas, breakEvenPrice };
