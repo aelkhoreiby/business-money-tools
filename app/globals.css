@@ -279,3 +279,45 @@ details p {
   .tool-index-card p { min-height: auto; }
   .site-footer { flex-direction: column; }
 }
+
+
+.related-tools { margin-top: 20px; }
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.related-grid a {
+  display: grid;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  background: var(--soft);
+}
+
+.related-grid strong { font-size: 16px; }
+
+.related-grid span {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.related-grid a:hover { border-color: var(--accent); }
+
+.guide h2:not(:first-child) { margin-top: 28px; }
+
+.guide-cta {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+@media (max-width: 780px) {
+  .related-grid { grid-template-columns: 1fr; }
+}
