@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SiteFooter from "./components/SiteFooter";
 
 export const metadata: Metadata = {
   title: "Business & Money Tools",
@@ -9,7 +10,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body>{children}</body>
+      <body>
+        {children}
+        <div className="page">
+          <SiteFooter />
+        </div>
+      </body>
     </html>
   );
 }
