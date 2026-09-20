@@ -8,5 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: base + "/tools/break-even-roas-calculator/", lastModified: new Date() },
     { url: base + "/tools/maximum-cac-calculator/", lastModified: new Date() },
     { url: base + "/guides/ecommerce-profit-vs-roas/", lastModified: new Date() },
+    { url: base + "/about/", lastModified: new Date() },
+    { url: base + "/privacy/", lastModified: new Date() },
+    { url: base + "/terms/", lastModified: new Date() },
   ];
 }
