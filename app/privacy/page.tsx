@@ -1,0 +1,72 @@
+import Link from "next/link";
+
+export const metadata = {
+  title: "سياسة الخصوصية | Business & Money Tools",
+  description: "سياسة الخصوصية لموقع Business & Money Tools.",
+};
+
+export default function PrivacyPage() {
+  return (
+    <main className="page">
+      <nav className="top-nav" aria-label="التنقل الرئيسي">
+        <Link href="/" className="brand">Business &amp; Money Tools</Link>
+        <Link href="/tools/ecommerce-profit-calculator/" className="nav-tool">الأدوات</Link>
+      </nav>
+
+      <article className="content-card guide">
+        <span className="section-kicker">الخصوصية</span>
+        <h1>سياسة الخصوصية</h1>
+        <p>
+          نحترم خصوصيتك. هذه الصفحة توضّح بصورة مبسطة نوع المعلومات التي قد يتم التعامل
+          معها عند استخدام Business &amp; Money Tools.
+        </p>
+
+        <h2>البيانات التي تدخلها في الأدوات</h2>
+        <p>
+          قيم الحساب التي تكتبها داخل الأدوات تُستخدم لإجراء الحسابات وعرض النتائج في
+          متصفحك. لا نطلب منك إدخال كلمات مرور أو بيانات بطاقات الدفع داخل أدوات الموقع.
+        </p>
+
+        <h2>بيانات الاستخدام والقياس</h2>
+        <p>
+          قد نستخدم خدمات قياس وتحليلات مثل Google Analytics أو Google Search Console
+          لفهم أداء الموقع وتحسين الصفحات. وقد تستخدم خدمات الطرف الثالث تقنيات مثل
+          ملفات تعريف الارتباط أو المعرفات وفق سياساتها الخاصة.
+        </p>
+
+        <h2>الإعلانات</h2>
+        <p>
+          قد نستخدم خدمات إعلانية من جهات خارجية، بما في ذلك Google AdSense، إذا تم
+          تفعيلها على الموقع. عند تفعيل الإعلانات، قد تستخدم الجهة الإعلانية ملفات
+          تعريف الارتباط أو تقنيات مشابهة لتقديم الإعلانات وقياسها وفق سياساتها وإعدادات
+          الموافقة المعمول بها.
+        </p>
+
+        <h2>روابط الجهات الخارجية</h2>
+        <p>
+          قد تحتوي بعض الصفحات على روابط لخدمات خارجية. نحن غير مسؤولين عن ممارسات
+          الخصوصية أو محتوى تلك الخدمات، ويجب مراجعة سياساتها بشكل مستقل.
+        </p>
+
+        <h2>تحديث هذه السياسة</h2>
+        <p>
+          قد نحدّث هذه السياسة عندما تتغير الأدوات أو الخدمات المستخدمة على الموقع.
+          سيُعرض الإصدار الأحدث من السياسة على هذه الصفحة.
+        </p>
+      </article>
+
+      <Footer />
+    </main>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="site-footer">
+      <span>Business &amp; Money Tools</span>
+      <span>
+        <Link href="/privacy/">الخصوصية</Link> · <Link href="/terms/">الشروط</Link> · <Link href="/about/">عن الموقع</Link>
+      </span>
+    </footer>
+  );
+}
