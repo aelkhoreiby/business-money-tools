@@ -28,16 +28,18 @@ export default function Home() {
           <Link href="/tools/ecommerce-profit-calculator/">فتح الحاسبة ←</Link>
         </div>
 
-        <div className="tool-index-card muted-card">
-          <span className="tool-status">قريبًا</span>
-          <h2>Invoice Generator</h2>
-          <p>إنشاء فواتير عربية/إنجليزية بسرعة وبدون تعقيد.</p>
+        <div className="tool-index-card">
+          <span className="tool-status">دليل</span>
+          <h2>Maximum CAC</h2>
+          <p>افهم الحد الأعلى لتكلفة اكتساب الطلب قبل نقطة التعادل.</p>
+          <Link href="/guides/maximum-cac-for-ecommerce/">اقرأ الدليل ←</Link>
         </div>
 
-        <div className="tool-index-card muted-card">
-          <span className="tool-status">لاحقًا</span>
-          <h2>Loan Calculator</h2>
-          <p>حاسبات مالية أكثر تخصصًا حسب السوق والدولة.</p>
+        <div className="tool-index-card">
+          <span className="tool-status">دليل</span>
+          <h2>Break-even ROAS</h2>
+          <p>افهم عتبة ROAS المطلوبة للوصول إلى التعادل.</p>
+          <Link href="/guides/break-even-roas-ecommerce/">اقرأ الدليل ←</Link>
         </div>
       </section>
 
