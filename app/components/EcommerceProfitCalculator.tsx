@@ -30,7 +30,16 @@ function money(value: number) {
 }
 
 export default function EcommerceProfitCalculator() {
-  const [v, setV] = useState<Inputs>(initial);\n  const trackedFirstInput = useRef(false);
+  const [v, setV] = useState<Inputs>(initial);
+  const trackedFirstInput = useRef(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "calculator_view", {
+        calculator: "ecommerce_profit",
+      });
+    }
+  }, []);
 
   const result = useMemo(() => {
     const revenue = Math.max(0, v.sellingPrice - v.discount);
@@ -56,6 +65,20 @@ export default function EcommerceProfitCalculator() {
       ...current,
       [key]: Number.isFinite(n) ? Math.max(0, n) : 0,
     }));
+
+    if (!trackedFirstInput.current && typeof window !== "undefined" && typeof window.gtag === "function") {
+      trackedFirstInput.current = true;
+      window.gtag("event", "calculator_input_started", {
+        calculator: "ecommerce_profit",
+      });
+    }
+
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "calculator_updated", {
+        calculator: "ecommerce_profit",
+        changed_field: key,
+      });
+    }
   }
 
   return (
