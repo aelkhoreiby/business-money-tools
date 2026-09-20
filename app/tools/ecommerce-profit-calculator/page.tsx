@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import EcommerceProfitCalculator from "../../components/EcommerceProfitCalculator";
 
 export const metadata: Metadata = {
@@ -51,7 +52,7 @@ export default function EcommerceProfitCalculatorPage() {
       />
       <main className="page tool-page">
         <nav className="top-nav" aria-label="التنقل الرئيسي">
-          <a href="/" className="brand">Business &amp; Money Tools</a>
+          <Link href="/" className="brand">Business &amp; Money Tools</Link>
           <a href="#calculator" className="nav-tool">الحاسبة</a>
         </nav>
 
@@ -91,25 +92,25 @@ export default function EcommerceProfitCalculatorPage() {
         </section>
 
         <section className="content-card related-tools">
-          <span className="section-kicker">قريبًا</span>
-          <h2>أدوات التجارة الإلكترونية القادمة</h2>
+          <span className="section-kicker">محتوى مرتبط</span>
+          <h2>أدوات وأدلة مرتبطة بالحاسبة</h2>
           <div className="related-grid">
-            <div>
-              <strong>حاسبة Break-even ROAS</strong>
+            <Link href="/guides/break-even-roas-ecommerce/">
+              <strong>دليل Break-even ROAS</strong>
               <span>اعرف عتبة ROAS التي يحتاجها الطلب للوصول إلى التعادل.</span>
-            </div>
-            <div>
-              <strong>حاسبة Maximum CAC</strong>
+            </Link>
+            <Link href="/guides/maximum-cac-for-ecommerce/">
+              <strong>دليل Maximum CAC</strong>
               <span>اعرف أقصى CAC تستطيع تحمله قبل التعادل.</span>
-            </div>
-            <div>
+            </Link>
+            <Link href="/guides/ecommerce-profit-vs-roas/">
               <strong>دليل الربح مقابل ROAS</strong>
               <span>شرح عملي للفرق بين ROAS والربح الحقيقي للطلب.</span>
-            </div>
+            </Link>
           </div>
         </section>
 
-      <section className="content-card faq-card">
+        <section className="content-card faq-card">
           <span className="section-kicker">الأسئلة الشائعة</span>
           <h2>أسئلة عن ربح المتجر وCAC وROAS</h2>
           <div className="faq-list">
@@ -124,7 +125,7 @@ export default function EcommerceProfitCalculatorPage() {
 
         <footer className="site-footer">
           <span>Business &amp; Money Tools Factory</span>
-          <a href="/tools/ecommerce-profit-calculator/">Ecommerce Profit Calculator</a>
+          <Link href="/tools/ecommerce-profit-calculator/">Ecommerce Profit Calculator</Link>
         </footer>
       </main>
     </>
