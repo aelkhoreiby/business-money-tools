@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import SiteFooter from "./components/SiteFooter";
 import GoogleAnalytics from "./components/GoogleAnalytics";
@@ -12,6 +13,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ar" dir="rtl">
       <body>
+        <Script
+          id="cookieyes"
+          type="text/javascript"
+          src="https://cdn-cookieyes.com/client_data/f409a605524bfa9999c706a1/script.js"
+          strategy="beforeInteractive"
+        />
         <GoogleAnalytics />
         {children}
         <div className="page">
