@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Inputs = {
   sellingPrice: number;
@@ -30,7 +30,7 @@ function money(value: number) {
 }
 
 export default function EcommerceProfitCalculator() {
-  const [v, setV] = useState<Inputs>(initial);
+  const [v, setV] = useState<Inputs>(initial);\n  const trackedFirstInput = useRef(false);
 
   const result = useMemo(() => {
     const revenue = Math.max(0, v.sellingPrice - v.discount);
@@ -133,4 +133,12 @@ function Result({
       <strong className={tone}>{value}</strong>
     </div>
   );
+}
+
+
+declare global {
+  interface Window {
+    dataLayer: unknown[];
+    gtag?: (...args: unknown[]) => void;
+  }
 }
