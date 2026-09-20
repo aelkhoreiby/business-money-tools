@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import EcommerceProfitCalculator from "@/app/components/EcommerceProfitCalculator";
+import EcommerceProfitCalculator from "../../components/EcommerceProfitCalculator";
 
 export const metadata: Metadata = {
   title: "حاسبة ربح المتجر الإلكتروني | Ecommerce Profit Calculator",
@@ -31,7 +31,7 @@ const faq = [
   },
 ];
 
-export default function EcommerceProfitCalculatorPage() {
+const jsonLd = {\n  "@context": "https://schema.org",\n  "@type": "WebApplication",\n  name: "Ecommerce Profit & Break-even Calculator",\n  applicationCategory: "BusinessApplication",\n  operatingSystem: "Any",\n  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },\n  description: "Free ecommerce profit calculator for net profit, margin, maximum CAC and break-even ROAS.",\n};\n\nexport default function EcommerceProfitCalculatorPage() {
   return (
     <main className="page tool-page">
       <nav className="top-nav" aria-label="التنقل الرئيسي">
