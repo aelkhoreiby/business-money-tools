@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import SiteFooter from "./components/SiteFooter";
 import GoogleAnalytics from "./components/GoogleAnalytics";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Business & Money Tools",
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           strategy="beforeInteractive"
         />
         <GoogleAnalytics />
+        <Analytics />
         {children}
         <div className="page">
           <SiteFooter />
