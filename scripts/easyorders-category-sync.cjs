@@ -6,6 +6,7 @@ if(process.env.VERCEL_ENV!=="production"||!key||!enabled){console.log("[easyorde
   const get=await fetch("https://api.easy-orders.net/api/v1/external-apps/categories/"+id,{headers:{"Api-Key":key},cache:"no-store"});
   const current=await get.json().catch(()=>null);
   const body={
+    thumb:current?.thumb||"https://files.easy-orders.net/placeholder/p3.png",
     name:current?.name||"ساعات",
     slug:current?.slug||"watches",
     show_in_header:false,
