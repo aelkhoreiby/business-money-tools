@@ -1,1 +1,5 @@
-import ProfitRescueHome from "./components/ProfitRescueHome";\n\nexport default function Home() {\n  return <ProfitRescueHome />;\n}\n
+import ProfitRescueHome from "./components/ProfitRescueHome";
+
+export default function Home() {
+  return <ProfitRescueHome />;
+}
