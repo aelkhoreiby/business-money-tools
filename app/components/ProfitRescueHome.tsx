@@ -14,7 +14,7 @@ const copy = {
     cta: "ابدأ التشخيص المجاني",
     secondary: "شاهد كيف يعمل",
     trust: "بدون بطاقة • نتائج فورية • AED / SAR / USD",
-    live: "LIVE PROFIT DIAGNOSTIC",
+    live: "PROFIT DIAGNOSTIC PREVIEW",
     leak: "Profit Leak",
     leakText: "ROAS جيد، لكن CAC الحالي يأكل معظم مساهمة الربح.",
     action: "NEXT BEST MOVE",
@@ -71,7 +71,7 @@ const copy = {
     cta: "Run free diagnostic",
     secondary: "See how it works",
     trust: "No card • Instant results • AED / SAR / USD",
-    live: "LIVE PROFIT DIAGNOSTIC",
+    live: "PROFIT DIAGNOSTIC PREVIEW",
     leak: "Profit Leak",
     leakText: "ROAS looks healthy, but current CAC is consuming most contribution profit.",
     action: "NEXT BEST MOVE",
@@ -165,7 +165,7 @@ export default function ProfitRescueHome() {
 
           <div className="trust-line">
             <span>✦ {t.trust}</span>
-            <span className="secure-chip">● LIVE</span>
+            <span className="secure-chip">● ENGINE PREVIEW</span>
           </div>
         </div>
 
