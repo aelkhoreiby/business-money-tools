@@ -179,7 +179,7 @@ export default function ProfitRescueHome() {
     if (typeof window !== "undefined" && typeof window.gtag === "function") {
       window.gtag("event", "select_offer", {
         item_id: plan,
-        item_name: selectedPlan,
+        item_name: plan,
       });
     }
   }
@@ -189,7 +189,7 @@ export default function ProfitRescueHome() {
       window.gtag("event", "begin_checkout", {
         item_id: selectedPlan,
         item_name: selected[2],
-        value: selected[1],
+        value: Number.parseFloat(selected[1].replace(/[^0-9.]/g, "")) || 0,
       });
     }
   }
