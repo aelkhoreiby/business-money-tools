@@ -24,7 +24,7 @@ const payload = {
   sale_price: 249,
   description: "<h2>B2B Contact Research - Up to 100 Companies</h2><p>Get a clean, decision-ready company/contact dataset built from public sources.</p><ul><li>Up to 100 company websites per order</li><li>Company name, website, public email, public phone, public address, and public social links when available</li><li>Deduplication and source URL for traceability</li><li>No guessed or fabricated contact details</li><li>Delivery as CSV/XLSX/JSON, depending on the request</li><li>Typical turnaround: up to 48 hours after intake is complete</li></ul><p><strong>Important:</strong> Public-source research only. We do not provide private or restricted personal data.</p>",
   slug,
-  sku: "PR-AI-B2B-100-249",
+  sku: "PR-AI-B2B-100-249",`n  thumb: "https://business-money-tools.vercel.app/product-images/profit-rescue-report.svg",`n  images: ["https://business-money-tools.vercel.app/product-images/profit-rescue-report.svg"],
   quantity: 999999,
   track_stock: false,
   disable_orders_for_no_stock: false,
