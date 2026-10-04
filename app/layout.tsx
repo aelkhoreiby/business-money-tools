@@ -6,8 +6,9 @@ import GoogleAnalytics from "./components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
-  title: "Business & Money Tools",
-  description: "Free business and money calculators built for real decisions.",
+  title: "Profit Rescue AI — The Ecommerce Store Doctor",
+  description: "AI-powered ecommerce profit intelligence: find profit leaks, protect CAC, diagnose store economics, and know what to fix next.",
+  keywords: ["ecommerce profit", "AI ecommerce", "profit calculator", "CAC", "ROAS", "RTO", "Saudi ecommerce", "UAE ecommerce"],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
