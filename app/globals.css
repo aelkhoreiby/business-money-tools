@@ -1347,6 +1347,54 @@ details p {
 @media (max-width: 980px) {
   .nova-site .nav-links { display: none; }
 
+  .nova-site .mobile-menu-toggle {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    border: 1px solid var(--pr-line);
+    border-radius: 12px;
+    background: rgba(255,255,255,.035);
+    color: var(--pr-text);
+    cursor: pointer;
+  }
+
+  .nova-site .mobile-menu-toggle span {
+    width: 16px;
+    height: 1.5px;
+    border-radius: 999px;
+    background: currentColor;
+  }
+
+  .nova-site .mobile-nav {
+    display: none;
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .nova-site .mobile-nav.open {
+    display: grid;
+  }
+
+  .nova-site .mobile-nav a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--pr-line);
+    border-radius: 12px;
+    padding: 9px 10px;
+    background: rgba(255,255,255,.035);
+    color: var(--pr-muted);
+    font-size: 11px;
+    font-weight: 800;
+  }
+
   .nova-site .hero-shell {
     grid-template-columns: 1fr;
     min-height: auto;
@@ -1955,10 +2003,5 @@ details p {
   html,
   body {
     overflow-x: hidden;
-  }
-
-  .nova-site .mobile-menu-toggle,
-  .nova-site .mobile-nav {
-    display: none;
   }
 }
