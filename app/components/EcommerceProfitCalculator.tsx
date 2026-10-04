@@ -29,9 +29,49 @@ function money(value: number) {
   });
 }
 
-export default function EcommerceProfitCalculator() {
+export default function EcommerceProfitCalculator({ ar }: { ar: boolean }) {
   const [v, setV] = useState<Inputs>(initial);
   const trackedFirstInput = useRef(false);
+
+  const labels = ar
+    ? {
+        aria: "حاسبة ربح التجارة الإلكترونية",
+        heading: "أدخل أرقام الطلب",
+        kicker: "احسبها قبل ما تزود الإعلانات",
+        live: "نتائج مباشرة",
+        sellingPrice: "سعر البيع",
+        productCost: "تكلفة المنتج",
+        shipping: "الشحن",
+        paymentFee: "رسوم الدفع / المنصة",
+        discount: "الخصم",
+        cac: "CAC / تكلفة الإعلان للطلب",
+        returnsRate: "نسبة المرتجعات %",
+        profit: "صافي الربح / الطلب",
+        margin: "صافي الهامش",
+        maxCac: "أقصى CAC",
+        breakEvenRoas: "Break-even ROAS",
+        breakEvenPrice: "سعر البيع عند التعادل",
+        note: "المعادلات هنا تنظر إلى الإيراد بعد الخصم والمرتجعات، ثم تطرح تكلفة المنتج والشحن والرسوم والإعلان للوصول إلى ربح الطلب الفعلي.",
+      }
+    : {
+        aria: "Ecommerce profit calculator",
+        heading: "Enter order economics",
+        kicker: "Calculate it before you increase ad spend",
+        live: "Live results",
+        sellingPrice: "Selling price",
+        productCost: "Product cost",
+        shipping: "Shipping",
+        paymentFee: "Payment / platform fee",
+        discount: "Discount",
+        cac: "CAC / ad cost per order",
+        returnsRate: "Returns rate %",
+        profit: "Net profit / order",
+        margin: "Net margin",
+        maxCac: "Maximum CAC",
+        breakEvenRoas: "Break-even ROAS",
+        breakEvenPrice: "Break-even selling price",
+        note: "These formulas use revenue after discounts and returns, then subtract product cost, shipping, fees, and ad spend to estimate true order profit.",
+      };
 
   useEffect(() => {
     if (typeof window !== "undefined" && typeof window.gtag === "function") {
@@ -66,53 +106,51 @@ export default function EcommerceProfitCalculator() {
       [key]: Number.isFinite(n) ? Math.max(0, n) : 0,
     }));
 
-    if (!trackedFirstInput.current && typeof window !== "undefined" && typeof window.gtag === "function") {
+    if (
+      !trackedFirstInput.current &&
+      typeof window !== "undefined" &&
+      typeof window.gtag === "function"
+    ) {
       trackedFirstInput.current = true;
       window.gtag("event", "calculator_input_started", {
         calculator: "ecommerce_profit",
       });
     }
-
-    if (typeof window !== "undefined" && typeof window.gtag === "function") {
-      window.gtag("event", "calculator_updated", {
-        calculator: "ecommerce_profit",
-        changed_field: key,
-      });
-    }
   }
 
   return (
-    <section className="tool-card" aria-label="Ecommerce profit calculator">
+    <section
+      className="tool-card"
+      aria-label={labels.aria}
+      dir={ar ? "rtl" : "ltr"}
+    >
       <div className="section-heading">
         <div>
-          <span className="section-kicker">احسبها قبل ما تزود الإعلانات</span>
-          <h2>أدخل أرقام الطلب</h2>
+          <span className="section-kicker">{labels.kicker}</span>
+          <h2>{labels.heading}</h2>
         </div>
-        <div className="live-badge">نتائج مباشرة</div>
+        <div className="live-badge">{labels.live}</div>
       </div>
 
       <div className="form-grid">
-        <Field label="سعر البيع" value={v.sellingPrice} onChange={(x) => update("sellingPrice", x)} />
-        <Field label="تكلفة المنتج" value={v.productCost} onChange={(x) => update("productCost", x)} />
-        <Field label="الشحن" value={v.shipping} onChange={(x) => update("shipping", x)} />
-        <Field label="رسوم الدفع / المنصة" value={v.paymentFee} onChange={(x) => update("paymentFee", x)} />
-        <Field label="الخصم" value={v.discount} onChange={(x) => update("discount", x)} />
-        <Field label="CAC / تكلفة الإعلان للطلب" value={v.cac} onChange={(x) => update("cac", x)} />
-        <Field label="نسبة المرتجعات %" value={v.returnsRate} onChange={(x) => update("returnsRate", x)} />
+        <Field label={labels.sellingPrice} value={v.sellingPrice} onChange={(x) => update("sellingPrice", x)} />
+        <Field label={labels.productCost} value={v.productCost} onChange={(x) => update("productCost", x)} />
+        <Field label={labels.shipping} value={v.shipping} onChange={(x) => update("shipping", x)} />
+        <Field label={labels.paymentFee} value={v.paymentFee} onChange={(x) => update("paymentFee", x)} />
+        <Field label={labels.discount} value={v.discount} onChange={(x) => update("discount", x)} />
+        <Field label={labels.cac} value={v.cac} onChange={(x) => update("cac", x)} />
+        <Field label={labels.returnsRate} value={v.returnsRate} onChange={(x) => update("returnsRate", x)} />
       </div>
 
       <div className="results">
-        <Result label="صافي الربح / الطلب" value={money(result.profit)} tone={result.profit >= 0 ? "positive" : "negative"} />
-        <Result label="صافي الهامش" value={money(result.margin) + "%"} tone={result.margin >= 0 ? "positive" : "negative"} />
-        <Result label="أقصى CAC" value={money(result.maxCac)} tone={result.maxCac >= 0 ? "positive" : "negative"} />
-        <Result label="Break-even ROAS" value={result.breakEvenRoas ? money(result.breakEvenRoas) + "x" : "—"} />
-        <Result label="سعر البيع عند التعادل" value={money(result.breakEvenPrice)} />
+        <Result label={labels.profit} value={money(result.profit)} tone={result.profit >= 0 ? "positive" : "negative"} />
+        <Result label={labels.margin} value={money(result.margin) + "%"} tone={result.margin >= 0 ? "positive" : "negative"} />
+        <Result label={labels.maxCac} value={money(result.maxCac)} tone={result.maxCac >= 0 ? "positive" : "negative"} />
+        <Result label={labels.breakEvenRoas} value={result.breakEvenRoas ? money(result.breakEvenRoas) + "x" : "—"} />
+        <Result label={labels.breakEvenPrice} value={money(result.breakEvenPrice)} />
       </div>
 
-      <p className="tool-note">
-        المعادلات هنا تنظر إلى الإيراد بعد الخصم والمرتجعات، ثم تطرح تكلفة المنتج
-        والشحن والرسوم والإعلان للوصول إلى ربح الطلب الفعلي.
-      </p>
+      <p className="tool-note">{labels.note}</p>
     </section>
   );
 }
@@ -157,7 +195,6 @@ function Result({
     </div>
   );
 }
-
 
 declare global {
   interface Window {
