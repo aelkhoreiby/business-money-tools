@@ -1,0 +1,5 @@
+/* Profit Rescue AI — keep Easy Orders as checkout only */
+footer [class*="lg:grid"],
+footer [class*="lg:hidden"] {
+  display: none !important;
+}
