@@ -35,7 +35,7 @@ const copy = {
       ["05", "Page Rescue", "لماذا لا تتحول صفحة المنتج إلى مبيعات؟"],
       ["06", "Scale Guard", "هل التوسع يزيد الربح أم يضغط الهامش؟"]
     ],
-    doctorKicker: "طبيب المتجر بالذكاء الاصطناعي",
+    doctorKicker: "PROFIT RESCUE AI • طبيب المتجر بالذكاء الاصطناعي",
     doctorTitle: "من الأرقام إلى قرار واضح",
     doctorText: "بدل عشرات الأرقام بلا أولوية، تحصل على ثلاث حركات واضحة: FIX • SCALE • STOP.",
     demoLabel: "مثال توضيحي",
@@ -106,7 +106,7 @@ const copy = {
       ["05", "Page Rescue", "Why is the product page under-converting?"],
       ["06", "Scale Guard", "Will scaling grow profit or compress margin?"]
     ],
-    doctorKicker: "THE AI STORE DOCTOR",
+    doctorKicker: "PROFIT RESCUE AI • THE AI STORE DOCTOR",
     doctorTitle: "From numbers to a clear decision",
     doctorText: "Instead of dozens of numbers with no priority, get three clear moves: FIX • SCALE • STOP.",
     demoLabel: "ILLUSTRATIVE OUTPUT",
@@ -248,6 +248,10 @@ export default function ProfitRescueHome() {
       <section className="hero-shell">
         <div className="hero-copy">
           <span className="eyebrow-pill"><i />{t.badge}</span>
+          <div className="hero-brand-nameplate" aria-label="Profit Rescue AI">
+            <span className="hero-brand-mark">PR</span>
+            <span><strong>Profit Rescue AI</strong><small>PROFIT INTELLIGENCE FOR ECOMMERCE</small></span>
+          </div>
           <h1>{t.title1}<br /><span className="gradient-text">{t.title2}</span></h1>
           <p className="hero-sub">{t.sub}</p>
 
@@ -263,6 +267,9 @@ export default function ProfitRescueHome() {
         </div>
 
         <div className="hero-visual">
+          <div className="hero-brand-art">
+            <img src="/brand/profit-rescue-ai-brand-hero.png" alt="Profit Rescue AI brand mark" />
+          </div>
           <div className="scanner-card">
             <div className="scanner-top">
               <div>
@@ -431,8 +438,16 @@ export default function ProfitRescueHome() {
       </section>
 
       <footer className="nova-footer">
-        <span>{t.footer}</span>
-        <span>© 2026 Profit Rescue AI</span>
+        <a href="/" className="footer-brand-lockup" aria-label="Profit Rescue AI home">
+          <span className="footer-brand-mark">PR</span>
+          <span><strong>Profit Rescue AI</strong><small>{t.footer}</small></span>
+        </a>
+        <div className="footer-meta">
+          <a href="/">Home</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <span>© 2026 Profit Rescue AI</span>
+        </div>
       </footer>
     </main>
   );
