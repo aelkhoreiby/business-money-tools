@@ -5,7 +5,7 @@ export default function SiteFooter() {
     <footer className="site-footer">
       <span>Business &amp; Money Tools</span>
       <span>
-        <Link href="/about/">عن الموقع</Link> · <Link href="/privacy/">الخصوصية</Link> · <Link href="/terms/">الشروط</Link>
+        <Link href="/about/">About</Link> · <Link href="/privacy/">Privacy</Link> · <Link href="/terms/">Terms</Link>
       </span>
     </footer>
   );
