@@ -4,61 +4,77 @@ import { useState } from "react";
 import Link from "next/link";
 import EcommerceProfitCalculator from "./EcommerceProfitCalculator";
 
+type PaidPlan = "RESCUE" | "GUARD" | "PRO";
+
 const copy = {
   ar: {
-    nav: ["التشخيص", "كيف يعمل", "الباقات", "للـAI Agents"],
+    nav: ["التشخيص", "كيف يعمل", "الباقات", "لوكلاء الذكاء الاصطناعي"],
     badge: "AI PROFIT INTELLIGENCE • GCC FIRST • GLOBAL READY",
-    title1: "متجرك بيبيع.",
-    title2: "لكن هل بيكسب فعلًا؟",
-    sub: "Profit Rescue AI يفحص اقتصاديات متجرك، يكشف أماكن تسريب الربح، ويرتب لك أهم خطوة تستحق التنفيذ أولًا.",
-    cta: "ابدأ التشخيص المجاني",
-    secondary: "شاهد كيف يعمل",
+    title1: "متجرك يبيع.",
+    title2: "لكن هل يحقق ربحًا فعلًا؟",
+    sub: "يحلّل Profit Rescue AI اقتصاديات متجرك، يكشف تسريبات الربح، ويرتّب لك أولويات الإصلاح قبل أن تزيد الإنفاق.",
+    cta: "ابدأ الفحص المجاني",
+    secondary: "اكتشف كيف يعمل",
     trust: "بدون بطاقة • نتائج فورية • AED / SAR / USD",
-    live: "PROFIT DIAGNOSTIC PREVIEW",
-    leak: "Profit Leak",
-    leakText: "ROAS جيد، لكن CAC الحالي يأكل معظم مساهمة الربح.",
-    action: "NEXT BEST MOVE",
-    actionText: "خفّض CAC المستهدف أو ارفع السعر قبل زيادة الميزانية.",
+    live: "معاينة تشخيص الربحية",
+    leak: "تسرّب في الربح",
+    leakText: "ROAS يبدو جيدًا، لكن تكلفة اكتساب العميل الحالية تستهلك معظم هامش الربح.",
+    action: "أفضل خطوة تالية",
+    actionText: "اخفض CAC المستهدف أو ارفع السعر قبل زيادة الميزانية.",
     impact: "+ SAR 2,840 / month",
-    freeKicker: "FREE PROFIT CHECK",
-    freeTitle: "اعرف الحقيقة قبل ما تزود الإعلان",
-    freeText: "حاسبتنا المجانية تحسب الربح الحقيقي بعد الخصم والمرتجعات والشحن والرسوم وCAC.",
-    howKicker: "ONE ENGINE • MANY ENTRY DOORS",
-    howTitle: "أي مشكلة تبدأ منها… نوصل لنفس Store Doctor",
+    freeKicker: "فحص الربحية المجاني",
+    freeTitle: "اعرف أرقامك قبل أن تزيد الإنفاق الإعلاني",
+    freeText: "حاسبة مجانية تحسب ربح الطلب بعد الخصومات والمرتجعات والشحن والرسوم وتكلفة اكتساب العميل.",
+    howKicker: "محرك واحد • مداخل متعددة",
+    howTitle: "ابدأ من المشكلة التي تؤلمك — وانتهِ إلى القرار الصحيح",
     howCards: [
-      ["01", "Profit Truth", "هل كل طلب بيكسب؟"],
-      ["02", "CAC Rescue", "أقصى تكلفة اكتساب آمنة؟"],
-      ["03", "RTO Rescue", "كام ريال بيضيع في المرتجعات؟"],
-      ["04", "AI Visibility", "هل الـAI يذكر متجرك؟"],
-      ["05", "Page Rescue", "ليه صفحة المنتج مش بتبيع؟"],
-      ["06", "Scale Guard", "هل التوسع هيكسب أم يحرق الهامش؟"]
+      ["01", "Profit Truth", "هل يحقق كل طلب ربحًا؟"],
+      ["02", "CAC Rescue", "ما الحد الآمن لتكلفة اكتساب العميل؟"],
+      ["03", "RTO Rescue", "كم تخسر بسبب المرتجعات؟"],
+      ["04", "AI Visibility", "هل يظهر متجرك عندما يبحث العملاء عبر الذكاء الاصطناعي؟"],
+      ["05", "Page Rescue", "لماذا لا تتحول صفحة المنتج إلى مبيعات؟"],
+      ["06", "Scale Guard", "هل التوسع يزيد الربح أم يضغط الهامش؟"]
     ],
-    doctorKicker: "THE AI STORE DOCTOR",
-    doctorTitle: "من Dashboard إلى قرار",
-    doctorText: "بدل 27 رقمًا بدون أولوية، تحصل على ثلاث حركات واضحة: FIX • SCALE • STOP.",
-    demoLabel: "DEMO OUTPUT",
-    demoTitle: "مثال لتقرير الإنقاذ",
+    doctorKicker: "طبيب المتجر بالذكاء الاصطناعي",
+    doctorTitle: "من الأرقام إلى قرار واضح",
+    doctorText: "بدل عشرات الأرقام بلا أولوية، تحصل على ثلاث حركات واضحة: FIX • SCALE • STOP.",
+    demoLabel: "مثال توضيحي",
+    demoTitle: "تقرير إنقاذ نموذجي",
     demoItems: [
-      ["STOP", "Hero Bundle", "− SAR 11.40 / order", "خصم + شحن + CAC أعلى من الحد."],
-      ["FIX", "AOV", "+ SAR 1,180 / mo", "Bundle بسيط يرفع قيمة السلة."],
-      ["SCALE", "Retargeting", "+ SAR 2,840 / mo", "أقوى مساهمة ربحية في العينة."]
+      ["STOP", "Hero Bundle", "− SAR 11.40 / order", "الخصم + الشحن + CAC يتجاوزون الحد الآمن."],
+      ["FIX", "AOV", "+ SAR 1,180 / mo", "Bundle أبسط يمكن أن يرفع متوسط قيمة السلة."],
+      ["SCALE", "Retargeting", "+ SAR 2,840 / mo", "أقوى إشارة لمساهمة الربح في العينة."]
     ],
-    pricingKicker: "PAY FOR THE OUTCOME",
-    pricingTitle: "ابدأ صغيرًا. خلي الربح يثبت نفسه.",
+    pricingKicker: "ادفع مقابل النتيجة",
+    pricingTitle: "اختر مستوى المساعدة المناسب لك",
+    pricingText: "ابدأ بفحص مجاني، ثم اختر خدمة واحدة واضحة بدل شراء تعقيد لا تحتاجه.",
+    freePlan: "ابدأ مجانًا",
+    selectPlan: "اختيار الباقة",
+    selectedPlan: "الباقة المختارة",
+    popular: "أفضل ترقية أولى",
+    bestFor: "مناسبة لـ",
+    secure: "متابعة إلى الدفع الآمن",
+    secureNote: "سيتم تأكيد الدفع عبر Easy Orders، ثم تبدأ رحلة التنفيذ للطلب.",
+    noNeed: "لا تحتاج لاختيار الثلاثة. اختر المستوى الذي يناسب وضع متجرك الآن.",
+    planBestFor: {
+      RESCUE: "من يريد تشخيصًا واضحًا مرة واحدة.",
+      GUARD: "من يريد متابعة مستمرة خلال الشهر.",
+      PRO: "من يدير أكثر من متجر أو يحتاج تغطية أوسع."
+    },
     plans: [
-      ["FREE", "$0", "Profit Check", ["True profit / order", "Max CAC", "Break-even ROAS"]],
-      ["RESCUE", "$29", "Profit Rescue Report", ["Top 3 profit leaks", "Prioritized action plan", "PDF-ready report"]],
-      ["GUARD", "$49 / mo", "Profit Guard", ["Ongoing alerts", "Scale Guard", "Weekly AI briefing"]],
-      ["PRO", "$99 / mo", "Guard Pro", ["Multi-store", "RTO + AI visibility", "Priority intelligence"]]
+      ["RESCUE", "$29", "Profit Rescue Report", ["أهم 3 تسريبات في الربح", "خطة إجراءات مرتبة بالأولوية", "تقرير PDF جاهز"]],
+      ["GUARD", "$49 / mo", "Profit Guard", ["تنبيهات مستمرة", "Scale Guard", "ملخص أسبوعي بالذكاء الاصطناعي"]],
+      ["PRO", "$99 / mo", "Guard Pro", ["دعم متعدد المتاجر", "RTO + AI visibility", "تحليلات وأولوية أعلى"]]
     ],
-    agentsKicker: "FOR AI AGENTS",
-    agentsTitle: "نفس intelligence… لكن machine-readable",
-    agentsText: "Agents لا يحتاجون صفحة. يحتاجون endpoint واضح، دفع x402، وJSON قابل للتنفيذ.",
+    funnelFallback: "التجربة الكاملة تبدأ من الفحص المجاني، ثم نوصلك مباشرة للباقة المناسبة.",
+    agentsKicker: "لوكلاء الذكاء الاصطناعي",
+    agentsTitle: "نفس الذكاء — بصيغة قابلة للتنفيذ آليًا",
+    agentsText: "الوكلاء يحتاجون endpoint واضحًا، دفعًا بـx402، وJSON قابلًا للقراءة والتنفيذ.",
     agentsCode: "{\n  \"profit_status\": \"at_risk\",\n  \"max_safe_cac\": 34.20,\n  \"next_move\": \"FIX_PRICE\",\n  \"expected_impact\": 2840,\n  \"currency\": \"SAR\"\n}",
-    finalKicker: "YOUR STORE. YOUR NUMBERS. YOUR NEXT MOVE.",
-    finalTitle: "خلّي الـAI يجيب على السؤال الأصعب:",
-    finalAccent: "فين الفلوس اللي بتضيع؟",
-    finalText: "ابدأ بالـFree Profit Check، وبعدها قرر هل تحتاج Rescue Report أو Profit Guard.",
+    finalKicker: "متجرك. أرقامك. خطوتك التالية.",
+    finalTitle: "دع الـAI يجيب عن السؤال الأصعب:",
+    finalAccent: "أين يتسرّب الربح؟",
+    finalText: "ابدأ بفحص الربحية المجاني، ثم اختر Rescue Report أو Profit Guard أو Guard Pro بناءً على احتياجك.",
     finalCta: "ابدأ الآن — مجانًا",
     footer: "Profit Rescue AI • AI-powered ecommerce profit intelligence"
   },
@@ -67,72 +83,116 @@ const copy = {
     badge: "AI PROFIT INTELLIGENCE • GCC FIRST • GLOBAL READY",
     title1: "Your store sells.",
     title2: "But does it actually make money?",
-    sub: "Profit Rescue AI finds the leaks inside your store economics, ranks the next actions, and tells you what deserves attention first.",
+    sub: "Profit Rescue AI analyzes your store economics, finds profit leaks, and ranks what deserves attention before you add more spend.",
     cta: "Run free diagnostic",
     secondary: "See how it works",
     trust: "No card • Instant results • AED / SAR / USD",
     live: "PROFIT DIAGNOSTIC PREVIEW",
     leak: "Profit Leak",
-    leakText: "ROAS looks healthy, but current CAC is consuming most contribution profit.",
+    leakText: "ROAS looks healthy, but current CAC is consuming most of the available contribution profit.",
     action: "NEXT BEST MOVE",
-    actionText: "Lower your target CAC or raise price before adding spend.",
+    actionText: "Lower your target CAC or raise price before increasing budget.",
     impact: "+ SAR 2,840 / month",
     freeKicker: "FREE PROFIT CHECK",
-    freeTitle: "Know the truth before you scale ads",
-    freeText: "Our free calculator shows real order profit after discounts, returns, shipping, fees and CAC.",
+    freeTitle: "Know your numbers before you increase ad spend",
+    freeText: "A free calculator estimates order profit after discounts, returns, shipping, fees, and customer acquisition cost.",
     howKicker: "ONE ENGINE • MANY ENTRY DOORS",
-    howTitle: "Start with any pain. End at the same Store Doctor.",
+    howTitle: "Start with the pain you feel — end with the decision you need",
     howCards: [
-      ["01", "Profit Truth", "Is every order profitable?"],
+      ["01", "Profit Truth", "Is every order actually profitable?"],
       ["02", "CAC Rescue", "What is your safe acquisition ceiling?"],
       ["03", "RTO Rescue", "How much margin is lost to returns?"],
-      ["04", "AI Visibility", "Does AI actually mention your store?"],
+      ["04", "AI Visibility", "Does AI surface your store to buyers?"],
       ["05", "Page Rescue", "Why is the product page under-converting?"],
-      ["06", "Scale Guard", "Will scaling grow profit or burn it?"]
+      ["06", "Scale Guard", "Will scaling grow profit or compress margin?"]
     ],
     doctorKicker: "THE AI STORE DOCTOR",
-    doctorTitle: "From dashboard to decision",
-    doctorText: "Instead of 27 numbers with no priority, get three clear moves: FIX • SCALE • STOP.",
-    demoLabel: "DEMO OUTPUT",
+    doctorTitle: "From numbers to a clear decision",
+    doctorText: "Instead of dozens of numbers with no priority, get three clear moves: FIX • SCALE • STOP.",
+    demoLabel: "ILLUSTRATIVE OUTPUT",
     demoTitle: "Sample rescue report",
     demoItems: [
       ["STOP", "Hero Bundle", "− SAR 11.40 / order", "Discount + shipping + CAC cross the safe line."],
-      ["FIX", "AOV", "+ SAR 1,180 / mo", "A simple bundle can lift basket value."],
+      ["FIX", "AOV", "+ SAR 1,180 / mo", "A simpler bundle can lift basket value."],
       ["SCALE", "Retargeting", "+ SAR 2,840 / mo", "Strongest contribution-profit signal in the sample."]
     ],
     pricingKicker: "PAY FOR THE OUTCOME",
-    pricingTitle: "Start small. Let profit prove the value.",
+    pricingTitle: "Choose the level of help you need",
+    pricingText: "Start free, then buy one clear outcome instead of a stack of features you do not need.",
+    freePlan: "Start free",
+    selectPlan: "Select plan",
+    selectedPlan: "Selected plan",
+    popular: "BEST FIRST UPGRADE",
+    bestFor: "Best for",
+    secure: "Continue to secure checkout",
+    secureNote: "Payment is handled by Easy Orders. After payment, the fulfillment flow starts automatically.",
+    noNeed: "You do not need all three. Pick the level that fits your store today.",
+    planBestFor: {
+      RESCUE: "A one-time, decision-ready profit diagnosis.",
+      GUARD: "Ongoing protection and monthly monitoring.",
+      PRO: "Multi-store operators who need broader coverage."
+    },
     plans: [
-      ["FREE", "$0", "Profit Check", ["True profit / order", "Max CAC", "Break-even ROAS"]],
       ["RESCUE", "$29", "Profit Rescue Report", ["Top 3 profit leaks", "Prioritized action plan", "PDF-ready report"]],
       ["GUARD", "$49 / mo", "Profit Guard", ["Ongoing alerts", "Scale Guard", "Weekly AI briefing"]],
-      ["PRO", "$99 / mo", "Guard Pro", ["Multi-store", "RTO + AI visibility", "Priority intelligence"]]
+      ["PRO", "$99 / mo", "Guard Pro", ["Multi-store support", "RTO + AI visibility", "Priority intelligence"]]
     ],
+    funnelFallback: "Start with the free diagnostic, then continue directly into the package that fits your next move.",
     agentsKicker: "FOR AI AGENTS",
     agentsTitle: "Same intelligence. Machine-readable.",
-    agentsText: "Agents do not need a landing page. They need a clear endpoint, x402 payment, and executable JSON.",
+    agentsText: "Agents need a clear endpoint, x402 payment, and executable JSON — not another dashboard.",
     agentsCode: "{\n  \"profit_status\": \"at_risk\",\n  \"max_safe_cac\": 34.20,\n  \"next_move\": \"FIX_PRICE\",\n  \"expected_impact\": 2840,\n  \"currency\": \"SAR\"\n}",
     finalKicker: "YOUR STORE. YOUR NUMBERS. YOUR NEXT MOVE.",
     finalTitle: "Let AI answer the hardest question:",
     finalAccent: "Where is the money leaking?",
-    finalText: "Start with the free Profit Check, then decide whether you need a Rescue Report or Profit Guard.",
+    finalText: "Start with the free Profit Check, then choose Rescue Report, Profit Guard, or Guard Pro based on the level of help you actually need.",
     finalCta: "Start free",
     footer: "Profit Rescue AI • AI-powered ecommerce profit intelligence"
   }
 } as const;
 
-// Checkout destinations are provisioned through Vercel environment variables.
-const checkoutUrls = {
-  RESCUE: process.env.NEXT_PUBLIC_RESCUE_CHECKOUT_URL,
-  GUARD: process.env.NEXT_PUBLIC_GUARD_CHECKOUT_URL,
-  PRO: process.env.NEXT_PUBLIC_PRO_CHECKOUT_URL,
-} as const;
+const planDetails: Record<PaidPlan, {
+  badge: string;
+  image: string;
+}> = {
+  RESCUE: { badge: "ONE-TIME", image: "/product-images/profit-rescue-report.svg" },
+  GUARD: { badge: "MONTHLY", image: "/product-images/profit-guard.svg" },
+  PRO: { badge: "MONTHLY", image: "/product-images/guard-pro.svg" },
+};
+
+const checkoutRoutes: Record<PaidPlan, string> = {
+  RESCUE: "/api/checkout?plan=RESCUE",
+  GUARD: "/api/checkout?plan=GUARD",
+  PRO: "/api/checkout?plan=PRO",
+};
 
 export default function ProfitRescueHome() {
-  const [lang, setLang] = useState<"ar" | "en">("ar");
+  const [lang, setLang] = useState<"ar" | "en">("en");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<PaidPlan>("RESCUE");
   const t = copy[lang];
   const ar = lang === "ar";
+  const selected = t.plans.find((plan) => plan[0] === selectedPlan) ?? t.plans[0];
+
+  function choosePlan(plan: PaidPlan) {
+    setSelectedPlan(plan);
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "select_offer", {
+        item_id: plan,
+        item_name: selectedPlan,
+      });
+    }
+  }
+
+  function beginCheckout() {
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "begin_checkout", {
+        item_id: selectedPlan,
+        item_name: selected[2],
+        value: selected[1],
+      });
+    }
+  }
 
   return (
     <main className={"nova-site " + (ar ? "is-ar" : "is-en")} dir={ar ? "rtl" : "ltr"}>
@@ -158,7 +218,7 @@ export default function ProfitRescueHome() {
           className="mobile-menu-toggle"
           aria-expanded={mobileNavOpen}
           aria-controls="mobile-navigation"
-          aria-label={ar ? "فتح القائمة" : "Open navigation"}
+          aria-label={ar ? "فتح قائمة التنقل" : "Open navigation"}
           onClick={() => setMobileNavOpen((open) => !open)}
         >
           <span />
@@ -167,8 +227,10 @@ export default function ProfitRescueHome() {
         </button>
 
         <div className="nav-actions">
-          <a className="nav-cta" href="#diagnostic">{ar ? "فحص مجاني" : "Free scan"}</a>
-          <button className="lang-toggle" onClick={() => setLang(ar ? "en" : "ar")}>{ar ? "EN" : "عربي"}</button>
+          <a className="nav-cta" href="#diagnostic">{ar ? "الفحص المجاني" : "Free scan"}</a>
+          <button className="lang-toggle" onClick={() => setLang(ar ? "en" : "ar")}>
+            {ar ? "EN" : "عربي"}
+          </button>
         </div>
 
         <nav
@@ -250,15 +312,13 @@ export default function ProfitRescueHome() {
             <div className="doctor-demo">
               <div className="demo-header"><span>{t.demoLabel}</span><b>AI</b></div>
               <h4>{t.demoTitle}</h4>
-              {t.demoItems.map(function(item) {
-                return (
-                  <div className="demo-row" key={item[0] + item[1]}>
-                    <span className={"demo-tag " + item[0].toLowerCase()}>{item[0]}</span>
-                    <div><strong>{item[1]}</strong><small>{item[3]}</small></div>
-                    <b>{item[2]}</b>
-                  </div>
-                );
-              })}
+              {t.demoItems.map((item) => (
+                <div className="demo-row" key={item[0] + item[1]}>
+                  <span className={"demo-tag " + item[0].toLowerCase()}>{item[0]}</span>
+                  <div><strong>{item[1]}</strong><small>{item[3]}</small></div>
+                  <b>{item[2]}</b>
+                </div>
+              ))}
             </div>
             <span className="example-note">{ar ? "مثال توضيحي — الحساب الحقيقي يبدأ من أرقامك." : "Illustrative example — your numbers replace the sample."}</span>
           </aside>
@@ -271,15 +331,13 @@ export default function ProfitRescueHome() {
           <h2>{t.howTitle}</h2>
         </div>
         <div className="door-grid">
-          {t.howCards.map(function(card) {
-            return (
-              <article className="door-card" key={card[0]}>
-                <span className="door-num">{card[0]}</span>
-                <div><h3>{card[1]}</h3><p>{card[2]}</p></div>
-                <span className="door-arrow">↗</span>
-              </article>
-            );
-          })}
+          {t.howCards.map((card) => (
+            <article className="door-card" key={card[0]}>
+              <span className="door-num">{card[0]}</span>
+              <div><h3>{card[1]}</h3><p>{card[2]}</p></div>
+              <span className="door-arrow">↗</span>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -287,34 +345,71 @@ export default function ProfitRescueHome() {
         <div className="section-intro centered">
           <span className="section-kicker">{t.pricingKicker}</span>
           <h2>{t.pricingTitle}</h2>
+          <p>{t.pricingText}</p>
         </div>
-        <div className="pricing-grid">
-          {t.plans.map(function(plan) {
+
+        <div className="pricing-grid funnel-pricing-grid">
+          <article className="price-card free-price-card">
+            <span className="plan-tag">FREE</span>
+            <strong className="plan-price">$0</strong>
+            <h3>Profit Check</h3>
+            <div className="plan-features">
+              <span>✓ True profit / order</span>
+              <span>✓ Maximum CAC</span>
+              <span>✓ Break-even ROAS</span>
+            </div>
+            <a className="outline-btn" href="#diagnostic">{t.freePlan}</a>
+          </article>
+
+          {t.plans.map((plan) => {
+            const planKey = plan[0] as PaidPlan;
+            const isSelected = selectedPlan === planKey;
             return (
-              <article className={"price-card " + (plan[0] === "RESCUE" ? "featured" : "")} key={plan[0]}>
-                {plan[0] === "RESCUE" && <span className="popular-ribbon">{ar ? "أفضل ترقية أولى" : "Best first upgrade"}</span>}
-                <span className="plan-tag">{plan[0]}</span>
+              <article
+                className={"price-card " + (planKey === "RESCUE" ? "featured" : "") + (isSelected ? " is-selected" : "")}
+                key={planKey}
+              >
+                {planKey === "RESCUE" && <span className="popular-ribbon">{t.popular}</span>}
+                <span className="plan-tag">{planKey}</span>
                 <strong className="plan-price">{plan[1]}</strong>
                 <h3>{plan[2]}</h3>
-                <div className="plan-features">{plan[3].map(function(f) { return <span key={f}>✓ {f}</span>; })}</div>
-                <a
-                  href={plan[0] === "FREE" ? "#diagnostic" : checkoutUrls[plan[0] as keyof typeof checkoutUrls] || undefined}
-                  className={
-                    (plan[0] === "RESCUE" ? "primary-btn compact" : "outline-btn") +
-                    (plan[0] !== "FREE" && !checkoutUrls[plan[0] as keyof typeof checkoutUrls] ? " is-disabled" : "")
-                  }
-                  aria-disabled={plan[0] !== "FREE" && !checkoutUrls[plan[0] as keyof typeof checkoutUrls]}
-                  onClick={(event) => {
-                    if (plan[0] !== "FREE" && !checkoutUrls[plan[0] as keyof typeof checkoutUrls]) event.preventDefault();
-                  }}
-                >
-                  {plan[0] === "FREE"
-                    ? (ar ? "ابدأ" : "Start")
-                    : (ar ? "الدفع الآمن" : "Secure checkout")}
-                </a>
+                <div className="plan-features">{plan[3].map((f) => <span key={f}>✓ {f}</span>)}</div>
+                <button type="button" className={isSelected ? "primary-btn compact plan-choice" : "outline-btn plan-choice"} onClick={() => choosePlan(planKey)}>
+                  {isSelected ? (ar ? "الباقة المختارة" : "Selected") : t.selectPlan}
+                </button>
               </article>
             );
           })}
+        </div>
+
+        <div className="offer-funnel" aria-live="polite">
+          <div className="offer-visual">
+            <div className="offer-image-wrap">
+              <img src={planDetails[selectedPlan].image} alt="" />
+            </div>
+          </div>
+          <div className="offer-copy">
+            <span className="section-kicker">{t.selectedPlan}</span>
+            <div className="offer-head">
+              <div>
+                <span className="plan-tag">{selectedPlan}</span>
+                <strong>{selected[1]}</strong>
+              </div>
+              <span className="offer-badge">{planDetails[selectedPlan].badge}</span>
+            </div>
+            <h3>{selected[2]}</h3>
+            <p><strong>{t.bestFor}:</strong> {t.planBestFor[selectedPlan]}</p>
+            <div className="offer-features">
+              {selected[3].map((f) => <span key={f}>✓ {f}</span>)}
+            </div>
+            <div className="offer-actions">
+              <a href={checkoutRoutes[selectedPlan]} className="primary-btn" onClick={beginCheckout}>
+                {t.secure}<span>↗</span>
+              </a>
+              <span>{t.secureNote}</span>
+            </div>
+            <p className="offer-note">{t.noNeed}</p>
+          </div>
         </div>
       </section>
 
@@ -341,4 +436,11 @@ export default function ProfitRescueHome() {
       </footer>
     </main>
   );
+}
+
+declare global {
+  interface Window {
+    dataLayer: unknown[];
+    gtag?: (...args: unknown[]) => void;
+  }
 }
