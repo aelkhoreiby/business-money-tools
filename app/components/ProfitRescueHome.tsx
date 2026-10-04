@@ -420,6 +420,40 @@ export default function ProfitRescueHome() {
         </div>
       </section>
 
+      <section id="b2b-data" className="pricing-section">
+        <div className="section-intro centered">
+          <span className="section-kicker">B2B DATA OPERATIONS</span>
+          <h2>Need a company list you can actually use?</h2>
+          <p>Profit Rescue AI now offers a fixed B2B contact research package powered by our data-operations stack.</p>
+        </div>
+        <div className="offer-funnel" aria-label="B2B contact research offer">
+          <div className="offer-visual">
+            <div className="offer-image-wrap">
+              <img src="/product-images/profit-rescue-report.svg" alt="" />
+            </div>
+          </div>
+          <div className="offer-copy">
+            <span className="section-kicker">FIXED-SCOPE SERVICE</span>
+            <div className="offer-head">
+              <div><strong>$249</strong><span className="offer-badge">ONE-TIME</span></div>
+            </div>
+            <h3>100-Company B2B Contact Research</h3>
+            <p>Send up to 100 company websites. Receive a clean dataset with public business contacts, deduplication, and source URLs.</p>
+            <div className="offer-features">
+              <span>✓ Company name + website</span>
+              <span>✓ Public email, phone, address, social links when available</span>
+              <span>✓ Deduplication + source URL for traceability</span>
+              <span>✓ CSV / XLSX / JSON delivery</span>
+              <span>✓ No guessed or fabricated contact details</span>
+            </div>
+            <div className="offer-actions">
+              <a className="primary-btn" href="/api/checkout?plan=LEADS">Get my B2B lead dataset <span>↗</span></a>
+              <span>Pay first. Then complete the secure intake with your target list.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="agents" className="agents-section">
         <div className="agents-copy">
           <span className="section-kicker">{t.agentsKicker}</span>

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { detectPlan, intakeUrl } from "../../../lib/fulfillment";
+import { detectPlan, intakeUrl, PLAN_INFO } from "../../../lib/fulfillment";
 
 export const dynamic = "force-dynamic";
 
@@ -136,8 +136,8 @@ export async function POST(req: NextRequest) {
     await addPublicNote(
       orderId,
       order?.store_id,
-      "Payment verified (ref " + paymentRef + "). Your " + plan +
-        " fulfillment is ready. Complete your secure profit intake here: " + intake
+      "Payment verified (ref " + paymentRef + "). Your " + PLAN_INFO[plan].name +
+        " fulfillment is ready. Complete your secure intake here: " + intake
     );
 
     return NextResponse.json({

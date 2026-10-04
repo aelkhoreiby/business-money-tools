@@ -5,8 +5,7 @@
     "scripts":  {
                     "dev":  "next dev",
                     "build":  "next build",
-                    "start":  "next start",
-                    "postbuild":  "node scripts/bootstrap-drop-service.mjs"
+                    "start":  "next start"
                 },
     "dependencies":  {
                          "next":  "^15.5.0",

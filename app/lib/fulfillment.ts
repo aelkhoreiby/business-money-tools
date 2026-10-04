@@ -1,11 +1,12 @@
 import crypto from "node:crypto";
 
-export type PlanKey = "RESCUE" | "GUARD" | "PRO";
+export type PlanKey = "RESCUE" | "GUARD" | "PRO" | "LEADS";
 
 export const PLAN_INFO: Record<PlanKey, { name: string; priceUsd: number }> = {
   RESCUE: { name: "Profit Rescue Report", priceUsd: 29 },
   GUARD: { name: "Profit Guard - 1 Month", priceUsd: 49 },
   PRO: { name: "Guard Pro - 1 Month", priceUsd: 99 },
+  LEADS: { name: "B2B Contact Research - Up to 100 Companies", priceUsd: 249 },
 };
 
 type TokenPayload = {
@@ -119,6 +120,7 @@ export function detectPlan(order: any): PlanKey | null {
     .toLowerCase();
 
   if (!haystack) return null;
+  if (haystack.includes("b2b-contact-research") || haystack.includes("b2b contact") || haystack.includes("contact research") || haystack.includes("lead dataset")) return "LEADS";
   if (haystack.includes("guard pro") || haystack.includes("guard-pro")) return "PRO";
   if (haystack.includes("profit guard") || haystack.includes("profit-guard")) return "GUARD";
   if (haystack.includes("profit rescue") || haystack.includes("rescue report") || haystack.includes("profit-rescue")) {

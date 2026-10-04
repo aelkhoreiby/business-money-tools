@@ -28,7 +28,8 @@ function htmlPage(title: string, body: string) {
     "h1{margin:0 0 8px;font-size:32px}p{color:#b7c0ca;line-height:1.6}",
     ".grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}",
     "label{display:block;color:#cbd2da;font-size:14px}",
-    "input,select{width:100%;box-sizing:border-box;margin-top:7px;padding:12px;border-radius:10px;border:1px solid #37404b;background:#0a0d11;color:#fff}",
+    "input,select,textarea{width:100%;box-sizing:border-box;margin-top:7px;padding:12px;border-radius:10px;border:1px solid #37404b;background:#0a0d11;color:#fff}",
+    "textarea{min-height:150px;resize:vertical;font:inherit;line-height:1.5}",
     ".full{grid-column:1/-1}.btn{margin-top:18px;width:100%;padding:14px;border:0;border-radius:12px;background:#fff;color:#07090c;font-weight:700;cursor:pointer}",
     ".note{font-size:13px;margin-top:16px}.pill{display:inline-block;padding:5px 9px;border:1px solid #37404b;border-radius:999px;font-size:12px;color:#cbd2da}",
     "@media(max-width:620px){.grid{grid-template-columns:1fr}}",
@@ -49,6 +50,22 @@ function number(value: FormDataEntryValue | null) {
   return Number.isFinite(n) ? Math.max(0, n) : 0;
 }
 
+async function addOrderNote(orderId: string, note: string, type: "public" | "private" = "private") {
+  const apiKey = String(process.env.EASY_ORDERS_API_KEY || "").trim();
+  if (!apiKey) throw new Error("EASY_ORDERS_API_KEY_NOT_CONFIGURED");
+  const response = await fetch("https://api.easy-orders.net/api/v1/external-apps/order-notes", {
+    method: "POST",
+    headers: {
+      "Api-Key": apiKey,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ order_id: orderId, type, note }),
+    cache: "no-store",
+  });
+  if (!response.ok) throw new Error("EASY_ORDERS_NOTE_FAILED:" + response.status);
+}
+
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const orderId = String(url.searchParams.get("order") || "");
@@ -59,6 +76,29 @@ export async function GET(req: NextRequest) {
     if (payload.orderId !== orderId) throw new Error("TOKEN_ORDER_MISMATCH");
 
     const plan = payload.plan;
+    if (plan === "LEADS") {
+      const body = [
+        '<span class="pill">B2B Contact Research · Paid fulfillment</span>',
+        "<h1>Submit your B2B research brief</h1>",
+        "<p>Order <strong>", escapeHtml(orderId), "</strong>. Submit up to 100 public company URLs and the fields you need. We will use public sources only.</p>",
+        '<form method="POST">',
+        '<input type="hidden" name="order" value="', escapeHtml(orderId), '">',
+        '<input type="hidden" name="token" value="', escapeHtml(token), '">',
+        '<input type="hidden" name="leadIntake" value="1">',
+        '<div class="grid">',
+        '<label class="full">Company websites (one URL per line, up to 100)<textarea name="urls" required placeholder="https://example.com&#10;https://another-company.com"></textarea></label>',
+        '<label>Industry / niche<input name="industry" placeholder="e.g. sports academies"></label>',
+        '<label>Target geography<input name="geography" placeholder="e.g. UAE, India"></label>',
+        '<label class="full">Requested fields<textarea name="fields" placeholder="Company, contact person, public email, phone, address, LinkedIn, source URL"></textarea></label>',
+        '<label>Output format<select name="format"><option>CSV</option><option>XLSX</option><option>JSON</option></select></label>',
+        '<label>Extra instructions<textarea name="notes" placeholder="Any qualification rules or exclusions"></textarea></label>',
+        '<div class="full"><button class="btn" type="submit">Submit research brief</button></div>',
+        "</div></form>",
+        '<p class="note">Public-source research only. We do not guess contact details or provide private/restricted personal data.</p>',
+      ].join("");
+      return htmlPage("B2B Research Intake", body);
+    }
+
     const body = [
       '<span class="pill">', escapeHtml(PLAN_INFO[plan].name), ' • Paid fulfillment</span>',
       "<h1>Build your Profit Rescue report</h1>",
@@ -101,6 +141,47 @@ export async function POST(req: NextRequest) {
   try {
     const payload = verifyFulfillmentToken(token);
     if (payload.orderId !== orderId) throw new Error("TOKEN_ORDER_MISMATCH");
+
+    if (payload.plan === "LEADS" && String(form.get("leadIntake") || "") === "1") {
+      const rawUrls = String(form.get("urls") || "");
+      const urls = rawUrls.split(/\r?\n/).map((value) => value.trim()).filter(Boolean);
+      const validUrls = urls.filter((value) => {
+        try {
+          const parsed = new URL(value);
+          return parsed.protocol === "http:" || parsed.protocol === "https:";
+        } catch {
+          return false;
+        }
+      });
+
+      if (!validUrls.length) throw new Error("AT_LEAST_ONE_VALID_URL_REQUIRED");
+      if (validUrls.length > 100) throw new Error("MAX_100_URLS");
+
+      const brief = {
+        type: "B2B_CONTACT_RESEARCH",
+        orderId,
+        submittedAt: new Date().toISOString(),
+        urls: validUrls,
+        industry: String(form.get("industry") || "").trim().slice(0, 300),
+        geography: String(form.get("geography") || "").trim().slice(0, 300),
+        fields: String(form.get("fields") || "").trim().slice(0, 2000),
+        format: ["CSV", "XLSX", "JSON"].includes(String(form.get("format") || "").toUpperCase())
+          ? String(form.get("format")).toUpperCase()
+          : "CSV",
+        notes: String(form.get("notes") || "").trim().slice(0, 2000),
+      };
+
+      await addOrderNote(orderId, JSON.stringify(brief), "private");
+
+      const body = [
+        '<span class="pill">Research brief received</span>',
+        "<h1>Your B2B research request is queued</h1>",
+        "<p>Order <strong>", escapeHtml(orderId), "</strong> has been captured with ", String(validUrls.length), " target companies.</p>",
+        "<p>We will process the request using public sources only and preserve source URLs in the final dataset.</p>",
+        '<p class="note">Typical turnaround: up to 48 hours after a complete brief.</p>',
+      ].join("");
+      return htmlPage("B2B Research Submitted", body);
+    }
 
     const currencyValue = String(form.get("currency") || "USD");
     const currency =
