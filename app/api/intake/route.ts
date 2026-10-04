@@ -5,7 +5,7 @@ import {
   PLAN_INFO,
   verifyFulfillmentToken,
   type PlanKey,
-} from "@/app/lib/fulfillment";
+} from "../../lib/fulfillment";
 
 export const dynamic = "force-dynamic";
 
