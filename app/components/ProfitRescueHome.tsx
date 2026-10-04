@@ -111,8 +111,7 @@ const copy = {
     agentsKicker: "FOR AI AGENTS",
     agentsTitle: "Same intelligence. Machine-readable.",
     agentsText: "Agents do not need a landing page. They need a clear endpoint, x402 payment, and executable JSON.",
-    agentsCode: '{" + "
-  \"profit_status\": \"at_risk\",\n  \"max_safe_cac\": 34.20,\n  \"next_move\": \"FIX_PRICE\",\n  \"expected_impact\": 2840,\n  \"currency\": \"SAR\"\n}',
+    agentsCode: "{\n  \"profit_status\": \"at_risk\",\n  \"max_safe_cac\": 34.20,\n  \"next_move\": \"FIX_PRICE\",\n  \"expected_impact\": 2840,\n  \"currency\": \"SAR\"\n}",
     finalKicker: "YOUR STORE. YOUR NUMBERS. YOUR NEXT MOVE.",
     finalTitle: "Let AI answer the hardest question:",
     finalAccent: "Where is the money leaking?",
