@@ -17,3 +17,6 @@ export async function GET(request: Request) {
 
   return NextResponse.redirect(target, 302);
 }
+
+// Easy Orders checkout routes intentionally point to funnel URLs so product pages are not a sales step.
+
