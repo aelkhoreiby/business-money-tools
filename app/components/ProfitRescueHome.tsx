@@ -54,8 +54,7 @@ const copy = {
     agentsKicker: "FOR AI AGENTS",
     agentsTitle: "نفس intelligence… لكن machine-readable",
     agentsText: "Agents لا يحتاجون صفحة. يحتاجون endpoint واضح، دفع x402، وJSON قابل للتنفيذ.",
-    agentsCode: '{" + "
-  \"profit_status\": \"at_risk\",\n  \"max_safe_cac\": 34.20,\n  \"next_move\": \"FIX_PRICE\",\n  \"expected_impact\": 2840,\n  \"currency\": \"SAR\"\n}',
+    agentsCode: "{\n  \"profit_status\": \"at_risk\",\n  \"max_safe_cac\": 34.20,\n  \"next_move\": \"FIX_PRICE\",\n  \"expected_impact\": 2840,\n  \"currency\": \"SAR\"\n}",
     finalKicker: "YOUR STORE. YOUR NUMBERS. YOUR NEXT MOVE.",
     finalTitle: "خلّي الـAI يجيب على السؤال الأصعب:",
     finalAccent: "فين الفلوس اللي بتضيع؟",
