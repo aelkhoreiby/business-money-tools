@@ -129,6 +129,7 @@ const checkoutUrls = {
 
 export default function ProfitRescueHome() {
   const [lang, setLang] = useState<"ar" | "en">("ar");
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const t = copy[lang];
   const ar = lang === "ar";
 
@@ -151,10 +152,34 @@ export default function ProfitRescueHome() {
           <a href="#agents">{t.nav[3]}</a>
         </nav>
 
+        <button
+          type="button"
+          className="mobile-menu-toggle"
+          aria-expanded={mobileNavOpen}
+          aria-controls="mobile-navigation"
+          aria-label={ar ? "فتح القائمة" : "Open navigation"}
+          onClick={() => setMobileNavOpen((open) => !open)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
         <div className="nav-actions">
           <a className="nav-cta" href="#diagnostic">{ar ? "فحص مجاني" : "Free scan"}</a>
           <button className="lang-toggle" onClick={() => setLang(ar ? "en" : "ar")}>{ar ? "EN" : "عربي"}</button>
         </div>
+
+        <nav
+          id="mobile-navigation"
+          className={"mobile-nav " + (mobileNavOpen ? "open" : "")}
+          aria-label={ar ? "التنقل" : "Mobile navigation"}
+        >
+          <a href="#diagnostic" onClick={() => setMobileNavOpen(false)}>{t.nav[0]}</a>
+          <a href="#how" onClick={() => setMobileNavOpen(false)}>{t.nav[1]}</a>
+          <a href="#pricing" onClick={() => setMobileNavOpen(false)}>{t.nav[2]}</a>
+          <a href="#agents" onClick={() => setMobileNavOpen(false)}>{t.nav[3]}</a>
+        </nav>
       </header>
 
       <section className="hero-shell">
