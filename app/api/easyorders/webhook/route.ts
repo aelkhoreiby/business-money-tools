@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { detectPlan, intakeUrl } from "@/app/lib/fulfillment";
+import { detectPlan, intakeUrl } from "../../../lib/fulfillment";
 
 export const dynamic = "force-dynamic";
 
