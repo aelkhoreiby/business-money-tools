@@ -29,7 +29,7 @@ function money(value: number) {
   });
 }
 
-export default function EcommerceProfitCalculator({ ar }: { ar: boolean }) {
+export default function EcommerceProfitCalculator({ ar = true }: { ar?: boolean } = {}) {
   const [v, setV] = useState<Inputs>(initial);
   const trackedFirstInput = useRef(false);
 
