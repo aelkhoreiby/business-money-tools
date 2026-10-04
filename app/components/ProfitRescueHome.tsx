@@ -423,32 +423,33 @@ export default function ProfitRescueHome() {
       <section id="b2b-data" className="pricing-section">
         <div className="section-intro centered">
           <span className="section-kicker">B2B DATA OPERATIONS</span>
-          <h2>Need a company list you can actually use?</h2>
-          <p>Profit Rescue AI now offers a fixed B2B contact research package powered by our data-operations stack.</p>
+          <h2>Need a usable B2B contact dataset?</h2>
+          <p>One fixed-scope service: give us up to 100 company websites, and receive a cleaned, source-traceable contact dataset.</p>
         </div>
         <div className="offer-funnel" aria-label="B2B contact research offer">
           <div className="offer-visual">
             <div className="offer-image-wrap">
-              <img src="/product-images/profit-rescue-report.svg" alt="" />
+              <div className="offer-badge">UP TO 100 COMPANIES</div>
+              <div style={{fontSize:"clamp(38px,6vw,64px)",fontWeight:900,letterSpacing:"-.05em",lineHeight:1}}>$249</div>
+              <div style={{marginTop:"8px",fontSize:"12px",fontWeight:800,letterSpacing:".08em",color:"#a5b4c7"}}>USD · ONE-TIME</div>
+              <p style={{marginTop:"18px",color:"#94a3b8",lineHeight:1.7}}>Public-source research, deduplication, and traceable source URLs.</p>
             </div>
           </div>
           <div className="offer-copy">
             <span className="section-kicker">FIXED-SCOPE SERVICE</span>
-            <div className="offer-head">
-              <div><strong>$249</strong><span className="offer-badge">ONE-TIME</span></div>
-            </div>
             <h3>100-Company B2B Contact Research</h3>
-            <p>Send up to 100 company websites. Receive a clean dataset with public business contacts, deduplication, and source URLs.</p>
+            <p>Send up to 100 company websites. We return a clean dataset with public business contacts when available.</p>
             <div className="offer-features">
               <span>✓ Company name + website</span>
-              <span>✓ Public email, phone, address, social links when available</span>
+              <span>✓ Public email, phone, address, social or LinkedIn when available</span>
               <span>✓ Deduplication + source URL for traceability</span>
               <span>✓ CSV / XLSX / JSON delivery</span>
               <span>✓ No guessed or fabricated contact details</span>
+              <span>✓ Typical turnaround: up to 48 hours after a complete brief</span>
             </div>
             <div className="offer-actions">
-              <a className="primary-btn" href="/api/checkout?plan=LEADS">Get my B2B lead dataset <span>↗</span></a>
-              <span>Pay first. Then complete the secure intake with your target list.</span>
+              <a className="primary-btn" href="/api/checkout?plan=LEADS" id="b2b-home-cta">Start B2B Research — $249 <span>↗</span></a>
+              <span>Pay once. Then submit your target list and research brief.</span>
             </div>
           </div>
         </div>
