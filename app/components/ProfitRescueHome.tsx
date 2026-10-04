@@ -272,14 +272,14 @@ export default function ProfitRescueHome() {
                 <h3>{plan[2]}</h3>
                 <div className="plan-features">{plan[3].map(function(f) { return <span key={f}>✓ {f}</span>; })}</div>
                 <a
-                  href={checkoutUrls[plan[0] as keyof typeof checkoutUrls] || undefined}
+                  href={plan[0] === "FREE" ? "#diagnostic" : checkoutUrls[plan[0] as keyof typeof checkoutUrls] || undefined}
                   className={
                     (plan[0] === "RESCUE" ? "primary-btn compact" : "outline-btn") +
-                    (checkoutUrls[plan[0] as keyof typeof checkoutUrls] ? "" : " is-disabled")
+                    (plan[0] !== "FREE" && !checkoutUrls[plan[0] as keyof typeof checkoutUrls] ? " is-disabled" : "")
                   }
-                  aria-disabled={!checkoutUrls[plan[0] as keyof typeof checkoutUrls]}
+                  aria-disabled={plan[0] !== "FREE" && !checkoutUrls[plan[0] as keyof typeof checkoutUrls]}
                   onClick={(event) => {
-                    if (!checkoutUrls[plan[0] as keyof typeof checkoutUrls]) event.preventDefault();
+                    if (plan[0] !== "FREE" && !checkoutUrls[plan[0] as keyof typeof checkoutUrls]) event.preventDefault();
                   }}
                 >
                   {plan[0] === "FREE"
