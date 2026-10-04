@@ -121,6 +121,7 @@ const copy = {
   }
 } as const;
 
+// Checkout destinations are provisioned through Vercel environment variables.
 const checkoutUrls = {
   RESCUE: process.env.NEXT_PUBLIC_RESCUE_CHECKOUT_URL,
   GUARD: process.env.NEXT_PUBLIC_GUARD_CHECKOUT_URL,
