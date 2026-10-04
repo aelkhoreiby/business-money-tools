@@ -122,7 +122,9 @@ export async function POST(req: NextRequest) {
     );
 
     const pdf = buildProfitReportPdf(report);
-    return new Response(pdf, {
+    const body = new Uint8Array(pdf.length);
+    body.set(pdf);
+    return new Response(body.buffer as ArrayBuffer, {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": 'attachment; filename="profit-rescue-' + orderId + '.pdf"',
