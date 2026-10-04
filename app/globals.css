@@ -2005,3 +2005,220 @@ details p {
     overflow-x: hidden;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   THREE-PLAN SALES FUNNEL
+   ───────────────────────────────────────────────────────────── */
+
+.nova-site .funnel-pricing-grid {
+  align-items: stretch;
+}
+
+.nova-site .price-card.is-selected {
+  border-color: rgba(83,217,255,.40);
+  box-shadow: 0 24px 70px rgba(83,217,255,.09);
+  transform: translateY(-3px);
+}
+
+.nova-site .plan-choice {
+  border-radius: 12px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.nova-site button.plan-choice {
+  appearance: none;
+}
+
+.nova-site .offer-funnel {
+  display: grid;
+  grid-template-columns: minmax(240px, .7fr) minmax(0, 1.3fr);
+  gap: 22px;
+  align-items: stretch;
+  margin-top: 20px;
+  padding: 22px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(83,217,255,.09), transparent 34%),
+    radial-gradient(circle at 90% 0%, rgba(120,104,255,.13), transparent 38%),
+    linear-gradient(180deg, rgba(17,22,38,.90), rgba(9,12,21,.82));
+  box-shadow: 0 28px 80px rgba(0,0,0,.22);
+}
+
+.nova-site .offer-visual {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.nova-site .offer-image-wrap {
+  width: min(100%, 330px);
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.11);
+  background: #0a0e18;
+  box-shadow: inset 0 1px rgba(255,255,255,.06), 0 18px 48px rgba(0,0,0,.22);
+}
+
+.nova-site .offer-image-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.nova-site .offer-copy {
+  min-width: 0;
+  padding: 6px 4px;
+}
+
+.nova-site .offer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 7px;
+}
+
+.nova-site .offer-head > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.nova-site .offer-head > div > strong {
+  font-size: 24px;
+  letter-spacing: -.04em;
+}
+
+.nova-site .offer-badge {
+  flex: 0 0 auto;
+  padding: 6px 8px;
+  border: 1px solid rgba(93,229,166,.18);
+  border-radius: 999px;
+  color: var(--pr-green);
+  background: rgba(93,229,166,.06);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .10em;
+}
+
+.nova-site .offer-copy h3 {
+  margin: 12px 0 8px;
+  font-size: 28px;
+  letter-spacing: -.04em;
+}
+
+.nova-site .offer-copy > p {
+  margin: 0;
+  color: var(--pr-muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.nova-site .offer-copy > p strong {
+  color: #d7dfef;
+}
+
+.nova-site .offer-features {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  color: #b8c4da;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.nova-site .offer-features span::first-letter {
+  color: var(--pr-green);
+}
+
+.nova-site .offer-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.nova-site .offer-actions .primary-btn {
+  min-width: 230px;
+}
+
+.nova-site .offer-actions > span {
+  color: #6f7c95;
+  font-size: 10px;
+  line-height: 1.55;
+  max-width: 260px;
+}
+
+.nova-site .offer-note {
+  margin-top: 15px !important;
+  color: #68758f !important;
+  font-size: 10px !important;
+}
+
+@media (max-width: 980px) {
+  .nova-site .offer-funnel {
+    grid-template-columns: 1fr;
+  }
+
+  .nova-site .offer-visual {
+    order: 0;
+  }
+
+  .nova-site .offer-copy {
+    order: 1;
+  }
+}
+
+@media (max-width: 650px) {
+  .nova-site .offer-funnel {
+    margin-top: 12px;
+    padding: 15px;
+    border-radius: 20px;
+    gap: 14px;
+  }
+
+  .nova-site .offer-image-wrap {
+    width: min(100%, 260px);
+    border-radius: 17px;
+  }
+
+  .nova-site .offer-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .nova-site .offer-head > div > strong {
+    font-size: 22px;
+  }
+
+  .nova-site .offer-copy h3 {
+    font-size: 24px;
+  }
+
+  .nova-site .offer-copy > p {
+    font-size: 13px;
+  }
+
+  .nova-site .offer-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .nova-site .offer-actions .primary-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .nova-site .offer-actions > span {
+    max-width: none;
+    font-size: 9px;
+  }
+}
