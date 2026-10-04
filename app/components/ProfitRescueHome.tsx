@@ -121,6 +121,12 @@ const copy = {
   }
 } as const;
 
+const checkoutUrls = {
+  RESCUE: process.env.NEXT_PUBLIC_RESCUE_CHECKOUT_URL,
+  GUARD: process.env.NEXT_PUBLIC_GUARD_CHECKOUT_URL,
+  PRO: process.env.NEXT_PUBLIC_PRO_CHECKOUT_URL,
+} as const;
+
 export default function ProfitRescueHome() {
   const [lang, setLang] = useState<"ar" | "en">("ar");
   const t = copy[lang];
@@ -209,7 +215,7 @@ export default function ProfitRescueHome() {
         </div>
 
         <div className="diagnostic-grid">
-          <EcommerceProfitCalculator />
+          <EcommerceProfitCalculator ar={ar} />
           <aside className="doctor-card">
             <div className="doctor-orbit" />
             <span className="section-kicker">{t.doctorKicker}</span>
@@ -265,7 +271,21 @@ export default function ProfitRescueHome() {
                 <strong className="plan-price">{plan[1]}</strong>
                 <h3>{plan[2]}</h3>
                 <div className="plan-features">{plan[3].map(function(f) { return <span key={f}>✓ {f}</span>; })}</div>
-                <a href="#diagnostic" className={plan[0] === "RESCUE" ? "primary-btn compact" : "outline-btn"}>{ar ? "ابدأ" : "Start"}</a>
+                <a
+                  href={checkoutUrls[plan[0] as keyof typeof checkoutUrls] || undefined}
+                  className={
+                    (plan[0] === "RESCUE" ? "primary-btn compact" : "outline-btn") +
+                    (checkoutUrls[plan[0] as keyof typeof checkoutUrls] ? "" : " is-disabled")
+                  }
+                  aria-disabled={!checkoutUrls[plan[0] as keyof typeof checkoutUrls]}
+                  onClick={(event) => {
+                    if (!checkoutUrls[plan[0] as keyof typeof checkoutUrls]) event.preventDefault();
+                  }}
+                >
+                  {plan[0] === "FREE"
+                    ? (ar ? "ابدأ" : "Start")
+                    : (ar ? "الدفع الآمن" : "Secure checkout")}
+                </a>
               </article>
             );
           })}
