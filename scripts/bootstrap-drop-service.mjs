@@ -1,4 +1,4 @@
-﻿const apiKey = String(process.env.EASY_ORDERS_API_KEY || "").trim();
+const apiKey = String(process.env.EASY_ORDERS_API_KEY || "").trim();
 const base = "https://api.easy-orders.net/api/v1/external-apps/products";
 const slug = "b2b-contact-research-100-companies";
 
@@ -36,6 +36,6 @@ const payload = {
 };
 const created = await fetch(base, { method: "POST", headers, body: JSON.stringify(payload), cache: "no-store" });
 const createdBody = await created.json().catch(() => null);
-if (!created.ok) throw new Error(`CREATE_FAILED:${created.status}`);
+if (!created.ok) { console.log(JSON.stringify({ bootstrap: "create_failed", status: created.status, body: createdBody })); process.exit(0); }
 const p = createdBody?.data ?? createdBody;
 console.log(JSON.stringify({ bootstrap: "created", id: p?.id, slug: p?.slug, name: p?.name, price: p?.price, sale_price: p?.sale_price }));
