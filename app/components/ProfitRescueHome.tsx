@@ -259,7 +259,7 @@ export default function ProfitRescueHome() {
         <div className="pricing-grid">
           {t.plans.map(function(plan) {
             return (
-              <article className={"price-card " + (plan[0] === "RESCUE" ? "featured" : "")} key={plan[0]}>
+              <article className={"price-card " + (plan[0] === "RESCUE" ? "featured" : "")} key={String(plan[0])}>
                 {plan[0] === "RESCUE" && <span className="popular-ribbon">{ar ? "أفضل ترقية أولى" : "Best first upgrade"}</span>}
                 <span className="plan-tag">{plan[0]}</span>
                 <strong className="plan-price">{plan[1]}</strong>
