@@ -1,4 +1,13 @@
+'use client';
+
+import { usePathname } from "next/navigation";
+
 export default function SiteFooter() {
+  const pathname = usePathname();
+
+  // The Profit Rescue AI homepage owns its own branded funnel footer.
+  if (pathname === "/") return null;
+
   return (
     <footer className="site-footer">
       <a href="/" className="site-footer-brand">
