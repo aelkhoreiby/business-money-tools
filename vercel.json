@@ -1,5 +1,5 @@
 {
   "crons": [
-    { "path": "/api/trends?geo=US", "schedule": "*/15 * * * *" }
+    { "path": "/api/trends?geo=US", "schedule": "0 3 * * *" }
   ]
 }
