@@ -3,3 +3,14 @@ footer [class*="lg:grid"],
 footer [class*="lg:hidden"] {
   display: none !important;
 }
+
+/* Checkout only: remove inherited legacy catalog navigation. */
+body:has(input[placeholder="اسمك بالكامل"]) a[href="/collections/sneakers"],
+body:has(input[placeholder="اسمك بالكامل"]) a[href="/pages/refund-policy"],
+body:has(input[placeholder="اسمك بالكامل"]) a[href="/pages/shipping-policy"] {
+  display: none !important;
+}
+
+body:has(input[placeholder="اسمك بالكامل"]) .h-full.w-full.flex.justify-center.items-center.gap-8 > div.flex:has(button[aria-expanded]) {
+  display: none !important;
+}
