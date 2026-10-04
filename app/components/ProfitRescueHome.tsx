@@ -54,7 +54,7 @@ const copy = {
     popular: "أفضل ترقية أولى",
     bestFor: "مناسبة لـ",
     secure: "متابعة إلى الدفع الآمن",
-    secureNote: "سيتم تأكيد الدفع عبر Easy Orders، ثم تبدأ رحلة التنفيذ للطلب.",
+    secureNote: "ستفتح صفحة الدفع الآمنة في نافذة مستقلة، وتظل قسيمة Profit Rescue AI متاحة هنا.",
     noNeed: "لا تحتاج لاختيار الثلاثة. اختر المستوى الذي يناسب وضع متجرك الآن.",
     planBestFor: {
       RESCUE: "من يريد تشخيصًا واضحًا مرة واحدة.",
@@ -125,7 +125,7 @@ const copy = {
     popular: "BEST FIRST UPGRADE",
     bestFor: "Best for",
     secure: "Continue to secure checkout",
-    secureNote: "Payment is handled by Easy Orders. After payment, the fulfillment flow starts automatically.",
+    secureNote: "Secure checkout opens in a separate tab, while your Profit Rescue AI funnel stays open here.",
     noNeed: "You do not need all three. Pick the level that fits your store today.",
     planBestFor: {
       RESCUE: "A one-time, decision-ready profit diagnosis.",
@@ -410,7 +410,7 @@ export default function ProfitRescueHome() {
               {selected[3].map((f) => <span key={f}>✓ {f}</span>)}
             </div>
             <div className="offer-actions">
-              <a href={checkoutRoutes[selectedPlan]} className="primary-btn" onClick={beginCheckout}>
+              <a href={checkoutRoutes[selectedPlan]} className="primary-btn" target="_blank" rel="noopener noreferrer" onClick={beginCheckout}>
                 {t.secure}<span>↗</span>
               </a>
               <span>{t.secureNote}</span>
