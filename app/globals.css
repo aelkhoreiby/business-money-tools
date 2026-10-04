@@ -375,18 +375,20 @@ details p {
 
 .nova-site .grain {
   position: absolute;
-  inset: -50%;
+  inset: 0;
   z-index: -1;
-  opacity: .035;
+  opacity: .022;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-  transform: rotate(6deg);
+  background-image:
+    radial-gradient(rgba(255,255,255,.8) .45px, transparent .45px),
+    radial-gradient(rgba(255,255,255,.45) .45px, transparent .45px);
+  background-position: 0 0, 7px 11px;
+  background-size: 13px 17px;
 }
 
 .nova-site .ambient {
   position: absolute;
   border-radius: 999px;
-  filter: blur(70px);
   pointer-events: none;
   z-index: -1;
 }
@@ -396,7 +398,7 @@ details p {
   height: 420px;
   top: 4rem;
   right: -12rem;
-  background: rgba(120, 104, 255, .18);
+  background: radial-gradient(circle, rgba(120,104,255,.15), transparent 68%);
 }
 
 .nova-site .ambient-two {
@@ -404,7 +406,7 @@ details p {
   height: 320px;
   top: 35rem;
   left: -10rem;
-  background: rgba(83, 217, 255, .10);
+  background: radial-gradient(circle, rgba(83,217,255,.09), transparent 68%);
 }
 
 .nova-site .nova-nav,
@@ -699,8 +701,8 @@ details p {
     0 0 80px rgba(120,104,255,.10),
     inset 0 1px 0 rgba(255,255,255,.07);
   transform: rotate(-2.2deg);
-  backdrop-filter: blur(20px);
   animation: pr-float 8s ease-in-out infinite;
+  will-change: transform;
 }
 
 .nova-site .scanner-card::before {
@@ -942,9 +944,9 @@ details p {
 .nova-site .agents-section,
 .nova-site .final-cta {
   border: 1px solid var(--pr-line);
-  background: linear-gradient(180deg, rgba(17,22,38,.84), rgba(10,13,23,.76));
-  box-shadow: 0 30px 75px rgba(0,0,0,.22);
-  backdrop-filter: blur(18px);
+  background: linear-gradient(180deg, rgba(17,22,38,.96), rgba(10,13,23,.92));
+  box-shadow: 0 24px 55px rgba(0,0,0,.20);
+  background-color: rgba(10,13,23,.94);
 }
 
 .nova-site .diagnostic-grid > .tool-card {
@@ -1123,7 +1125,7 @@ details p {
   padding: 18px;
   border: 1px solid var(--pr-line);
   border-radius: 21px;
-  background: rgba(255,255,255,.022);
+  background: rgba(255,255,255,.035);
   transition: transform .2s ease, border-color .2s ease, background .2s ease;
 }
 
@@ -1498,5 +1500,20 @@ details p {
   .nova-site .outline-btn,
   .nova-site .door-card {
     transition: none;
+  }
+}
+
+.nova-site .is-disabled {
+  opacity: .48;
+  cursor: not-allowed;
+  pointer-events: auto;
+  filter: none;
+  transform: none !important;
+}
+
+@media (max-width: 650px) {
+  .nova-site .ambient-one,
+  .nova-site .ambient-two {
+    opacity: .45;
   }
 }
