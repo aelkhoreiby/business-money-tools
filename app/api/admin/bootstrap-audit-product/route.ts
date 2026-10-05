@@ -16,6 +16,8 @@ export async function GET() {
       "<p><strong>Website SEO + AI Visibility Audit</strong></p><p>Automated audit covering technical SEO, on-page signals, performance, accessibility, security, AEO and GEO/AI visibility signals. Delivered as a Profit Rescue AI PDF after payment.</p><p>This service provides diagnostic findings and recommendations only and does not guarantee rankings, traffic, conversions or revenue outcomes.</p>",
     slug: "website-seo-ai-visibility-audit",
     sku: "NOVA-AUDIT-SEO-AI-59",
+    thumb: "https://business-money-tools.vercel.app/product-images/profit-rescue-report.svg",
+    images: ["https://business-money-tools.vercel.app/product-images/profit-rescue-report.svg"],
     quantity: 999999,
     track_stock: false,
     disable_orders_for_no_stock: false,
