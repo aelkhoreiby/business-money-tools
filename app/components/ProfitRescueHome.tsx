@@ -455,6 +455,40 @@ export default function ProfitRescueHome() {
         </div>
       </section>
 
+      <section id="website-audit" className="pricing-section">
+        <div className="section-intro centered">
+          <span className="section-kicker">WEBSITE AUDIT</span>
+          <h2>Website SEO + AI Visibility Audit</h2>
+          <p>One-time, client-ready audit covering technical SEO, content, Core Web Vitals, AEO and GEO readiness.</p>
+        </div>
+        <div className="offer-funnel" aria-label="Website SEO and AI visibility audit offer">
+          <div className="offer-visual">
+            <div className="offer-image-wrap">
+              <div className="offer-badge">ONE-TIME · PDF DELIVERY</div>
+              <div style={{fontSize:"clamp(42px,7vw,68px)",fontWeight:900,letterSpacing:"-.05em",lineHeight:1}}>$59</div>
+              <div style={{marginTop:"8px",fontSize:"12px",fontWeight:800,letterSpacing:".08em",color:"#a5b4c7"}}>USD · NO SUBSCRIPTION</div>
+            </div>
+          </div>
+          <div className="offer-copy">
+            <span className="section-kicker">AUTOMATED FULFILLMENT</span>
+            <h3>Audit any public website</h3>
+            <p>After payment, submit one website you own, manage, or have permission to audit. The fulfillment engine runs the audit and returns a branded-ready PDF.</p>
+            <div className="offer-features">
+              <span>✓ 60+ technical and on-page checks</span>
+              <span>✓ Core Web Vitals / performance signals</span>
+              <span>✓ AEO + GEO readiness scoring</span>
+              <span>✓ Prioritized warnings and failures</span>
+              <span>✓ Client-ready PDF delivery</span>
+              <span>✓ No account or vendor subscription required for fulfillment</span>
+            </div>
+            <div className="offer-actions">
+              <a className="primary-btn" href="/api/checkout?plan=AUDIT" id="website-audit-cta">Get the Website Audit — $59 <span>↗</span></a>
+              <span>Pay once. Then submit the site and generate the report.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="agents" className="agents-section">
         <div className="agents-copy">
           <span className="section-kicker">{t.agentsKicker}</span>
