@@ -3,6 +3,8 @@ import { detectPlan, intakeUrl, PLAN_INFO } from "../../../lib/fulfillment";
 
 export const dynamic = "force-dynamic";
 
+// Production webhook secret is supplied through the Easy Orders Vercel environment variable.
+
 const EASY_ORDERS_API = "https://api.easy-orders.net/api/v1/external-apps/orders";
 
 function webhookSecretMatches(req: NextRequest) {
