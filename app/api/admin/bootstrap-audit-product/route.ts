@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const API_URL = "https://api.easy-orders.net/api/v1/external-apps/products";
 
-export async function POST() {
+export async function GET() {
   const apiKey = process.env.EASY_ORDERS_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ ok: false, error: "EASY_ORDERS_API_KEY_MISSING" }, { status: 500 });
