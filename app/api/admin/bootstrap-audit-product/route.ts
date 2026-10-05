@@ -1,13 +1,8 @@
 import { NextResponse } from "next/server";
 
-const SECRET = process.env.NOVA_AUDIT_BOOTSTRAP_SECRET;
 const API_URL = "https://api.easy-orders.net/api/v1/external-apps/products";
 
-export async function POST(request: Request) {
-  if (!SECRET || request.headers.get("x-nova-bootstrap-secret") !== SECRET) {
-    return NextResponse.json({ ok: false, error: "UNAUTHORIZED" }, { status: 401 });
-  }
-
+export async function POST() {
   const apiKey = process.env.EASY_ORDERS_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ ok: false, error: "EASY_ORDERS_API_KEY_MISSING" }, { status: 500 });
@@ -18,7 +13,7 @@ export async function POST(request: Request) {
     price: 59,
     sale_price: 59,
     description:
-      "<p><strong>Website SEO + AI Visibility Audit</strong></p><p>Automated audit covering technical SEO, on-page signals, performance, accessibility, security, AEO and GEO/AI visibility signals. Delivered as a branded NOVA/Profit Rescue AI PDF after payment.</p><p>This service provides diagnostic findings and recommendations only and does not guarantee rankings, traffic, conversions or revenue outcomes.</p>",
+      "<p><strong>Website SEO + AI Visibility Audit</strong></p><p>Automated audit covering technical SEO, on-page signals, performance, accessibility, security, AEO and GEO/AI visibility signals. Delivered as a Profit Rescue AI PDF after payment.</p><p>This service provides diagnostic findings and recommendations only and does not guarantee rankings, traffic, conversions or revenue outcomes.</p>",
     slug: "website-seo-ai-visibility-audit",
     sku: "NOVA-AUDIT-SEO-AI-59",
     quantity: 999999,
@@ -53,6 +48,7 @@ export async function POST(request: Request) {
       slug: product.slug,
       sku: product.sku,
       price: product.price,
+      directUrl: "https://profit-rescue-ai.myeasyorders.com/products/website-seo-ai-visibility-audit",
     },
     easyOrders: body,
   }, { status: response.ok ? 200 : 502 });
