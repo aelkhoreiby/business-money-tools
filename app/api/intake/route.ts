@@ -8,6 +8,7 @@ import {
 } from "../../lib/fulfillment";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 240;
 
 function escapeHtml(value: string) {
   return String(value)
@@ -50,6 +51,92 @@ function number(value: FormDataEntryValue | null) {
   return Number.isFinite(n) ? Math.max(0, n) : 0;
 }
 
+function csvCell(value: unknown) {
+  const text = String(value ?? "");
+  return '"' + text.replaceAll('"', '""') + '"';
+}
+
+function buildB2bRows(fulfillment: any) {
+  return (fulfillment?.results || []).map((item: any) => {
+    if (!item?.ok) {
+      return {
+        "Company Name": "",
+        "Website": item?.url || "",
+        "Public Emails": "",
+        "Public Phones": "",
+        "Address": "",
+        "LinkedIn": "",
+        "Social Profiles": "",
+        "Source URL": item?.url || "",
+        "Status": "FAILED: " + String(item?.error || "unknown_error").slice(0, 300),
+      };
+    }
+
+    const result = item.result || {};
+    const profiles = Array.isArray(result.socialProfiles) ? result.socialProfiles : [];
+    return {
+      "Company Name": result.companyName || result.title || "",
+      "Website": result.url || item.url || "",
+      "Public Emails": Array.isArray(result.emails) ? result.emails.join("; ") : "",
+      "Public Phones": Array.isArray(result.phones) ? result.phones.join("; ") : "",
+      "Address": result.address || "",
+      "LinkedIn": profiles.filter((value: string) => /linkedin\.com/i.test(value)).join("; "),
+      "Social Profiles": profiles.join("; "),
+      "Source URL": item.url || result.url || "",
+      "Status": "OK",
+    };
+  });
+}
+
+function buildB2bCsv(rows: Array<Record<string, unknown>>) {
+  const fields = [
+    "Company Name",
+    "Website",
+    "Public Emails",
+    "Public Phones",
+    "Address",
+    "LinkedIn",
+    "Social Profiles",
+    "Source URL",
+    "Status",
+  ];
+  return [
+    fields.map(csvCell).join(","),
+    ...rows.map((row) => fields.map((field) => csvCell(row[field])).join(",")),
+  ].join("\r\n");
+}
+
+async function runB2bFulfillment(orderId: string, token: string, urls: string[]) {
+  const workerUrl = String(
+    process.env.NOVA_B2B_INTERNAL_WORKER_URL ||
+      "https://nova-demand-worker.vercel.app/internal/b2b/contact-research"
+  ).trim();
+  const response = await fetch(workerUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ orderId, token, urls }),
+    cache: "no-store",
+    signal: AbortSignal.timeout(220_000),
+  });
+
+  const text = await response.text();
+  let payload: any = null;
+  try {
+    payload = text ? JSON.parse(text) : null;
+  } catch {
+    payload = null;
+  }
+
+  if (!response.ok || !payload?.ok) {
+    throw new Error(String(payload?.error || `NOVA_B2B_FULFILLMENT_FAILED:${response.status}`).slice(0, 500));
+  }
+
+  return payload.result;
+}
+
 async function addOrderNote(orderId: string, note: string, type: "public" | "private" = "private") {
   const apiKey = String(process.env.EASY_ORDERS_API_KEY || "").trim();
   if (!apiKey) throw new Error("EASY_ORDERS_API_KEY_NOT_CONFIGURED");
@@ -71,6 +158,16 @@ export async function GET(req: NextRequest) {
   const orderId = String(url.searchParams.get("order") || "");
   const token = String(url.searchParams.get("token") || "");
 
+  if (url.searchParams.get("mode") === "verify") {
+    try {
+      const payload = verifyFulfillmentToken(token);
+      if (payload.orderId !== orderId || payload.plan !== "LEADS") throw new Error("INVALID_B2B_TOKEN");
+      return Response.json({ ok: true, orderId: payload.orderId, plan: payload.plan });
+    } catch {
+      return Response.json({ ok: false }, { status: 401 });
+    }
+  }
+
   try {
     const payload = verifyFulfillmentToken(token);
     if (payload.orderId !== orderId) throw new Error("TOKEN_ORDER_MISMATCH");
@@ -90,7 +187,7 @@ export async function GET(req: NextRequest) {
         '<label>Industry / niche<input name="industry" placeholder="e.g. sports academies"></label>',
         '<label>Target geography<input name="geography" placeholder="e.g. UAE, India"></label>',
         '<label class="full">Requested fields<textarea name="fields" placeholder="Company, contact person, public email, phone, address, LinkedIn, source URL"></textarea></label>',
-        '<label>Output format<select name="format"><option>CSV</option><option>XLSX</option><option>JSON</option></select></label>',
+        '<label>Output format<select name="format"><option>CSV</option><option>JSON</option></select></label>',
         '<label>Extra instructions<textarea name="notes" placeholder="Any qualification rules or exclusions"></textarea></label>',
         '<div class="full"><button class="btn" type="submit">Submit research brief</button></div>',
         "</div></form>",
@@ -165,22 +262,56 @@ export async function POST(req: NextRequest) {
         industry: String(form.get("industry") || "").trim().slice(0, 300),
         geography: String(form.get("geography") || "").trim().slice(0, 300),
         fields: String(form.get("fields") || "").trim().slice(0, 2000),
-        format: ["CSV", "XLSX", "JSON"].includes(String(form.get("format") || "").toUpperCase())
+        format: ["CSV", "JSON"].includes(String(form.get("format") || "").toUpperCase())
           ? String(form.get("format")).toUpperCase()
           : "CSV",
         notes: String(form.get("notes") || "").trim().slice(0, 2000),
       };
 
-      await addOrderNote(orderId, JSON.stringify(brief), "private");
+      const fulfillment = await runB2bFulfillment(orderId, token, validUrls);
+      const rows = buildB2bRows(fulfillment);
 
-      const body = [
-        '<span class="pill">Research brief received</span>',
-        "<h1>Your B2B research request is queued</h1>",
-        "<p>Order <strong>", escapeHtml(orderId), "</strong> has been captured with ", String(validUrls.length), " target companies.</p>",
-        "<p>We will process the request using public sources only and preserve source URLs in the final dataset.</p>",
-        '<p class="note">Typical turnaround: up to 48 hours after a complete brief.</p>',
-      ].join("");
-      return htmlPage("B2B Research Submitted", body);
+      const completionNote = {
+        type: "B2B_CONTACT_RESEARCH_COMPLETED",
+        orderId,
+        completedAt: new Date().toISOString(),
+        inputCount: fulfillment?.count || validUrls.length,
+        succeeded: fulfillment?.succeeded || 0,
+        failed: fulfillment?.failed || 0,
+        format: brief.format,
+        industry: brief.industry,
+        geography: brief.geography,
+      };
+      await addOrderNote(orderId, JSON.stringify(completionNote), "private");
+
+      const safeFileStem = orderId.replace(/[^a-zA-Z0-9_-]/g, "-");
+      if (brief.format === "JSON") {
+        const output = {
+          service: "B2B Contact Research - Up to 100 Companies",
+          orderId,
+          generatedAt: new Date().toISOString(),
+          count: fulfillment?.count || validUrls.length,
+          succeeded: fulfillment?.succeeded || 0,
+          failed: fulfillment?.failed || 0,
+          results: fulfillment?.results || [],
+        };
+        return new Response(JSON.stringify(output, null, 2), {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Content-Disposition": `attachment; filename="b2b-contact-research-${safeFileStem}.json"`,
+            "Cache-Control": "no-store",
+          },
+        });
+      }
+
+      const csv = buildB2bCsv(rows);
+      return new Response(csv, {
+        headers: {
+          "Content-Type": "text/csv; charset=utf-8",
+          "Content-Disposition": `attachment; filename="b2b-contact-research-${safeFileStem}.csv"`,
+          "Cache-Control": "no-store",
+        },
+      });
     }
 
     const currencyValue = String(form.get("currency") || "USD");

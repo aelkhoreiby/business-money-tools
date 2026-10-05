@@ -443,9 +443,9 @@ export default function ProfitRescueHome() {
               <span>✓ Company name + website</span>
               <span>✓ Public email, phone, address, social or LinkedIn when available</span>
               <span>✓ Deduplication + source URL for traceability</span>
-              <span>✓ CSV / XLSX / JSON delivery</span>
+              <span>✓ CSV / JSON delivery</span>
               <span>✓ No guessed or fabricated contact details</span>
-              <span>✓ Typical turnaround: up to 48 hours after a complete brief</span>
+              <span>✓ Automated processing starts immediately after a complete brief</span>
             </div>
             <div className="offer-actions">
               <a className="primary-btn" href="/api/checkout?plan=LEADS" id="b2b-home-cta">Start B2B Research — $249 <span>↗</span></a>
