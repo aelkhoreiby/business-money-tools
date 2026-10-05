@@ -100,7 +100,8 @@ export function appBaseUrl() {
 
 export function intakeUrl(orderId: string, plan: PlanKey) {
   const token = createFulfillmentToken(orderId, plan);
-  return appBaseUrl() + "/api/intake?order=" + encodeURIComponent(orderId) + "&token=" + encodeURIComponent(token);
+  const route = plan === "AUDIT" ? "/api/audit-intake" : "/api/intake";
+  return appBaseUrl() + route + "?order=" + encodeURIComponent(orderId) + "&token=" + encodeURIComponent(token);
 }
 
 export function detectPlan(order: any): PlanKey | null {
