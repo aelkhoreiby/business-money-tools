@@ -76,7 +76,6 @@ for (const target of targets) {
     is_reviews_enabled: false,
     is_free_shipping: true,
     buy_now_text: "Start secure checkout",
-    is_digital: true,
   };
 
   if (!existing) {
@@ -109,7 +108,6 @@ for (const target of targets) {
     currentPrice !== target.price ||
     currentSale !== target.price ||
     existing.hidden === true ||
-    existing.is_digital !== true;
 
   if (!needsUpdate) {
     console.log(JSON.stringify({
