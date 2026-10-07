@@ -77,13 +77,13 @@ function wrap(text: string, max = 92) {
   return lines.length ? lines : [""];
 }
 
-export function buildWebsiteAuditPdf(report: WebsiteAuditResult, orderId: string) {
+export function buildWebsiteAuditPdf(report: WebsiteAuditResult, orderId: string, profitReport?: { profit:number; margin:number; maxCac:number; breakEvenRoas:number; breakEvenPrice:number; decision:string; leaks:string[]; actions:string[]; currency:string }) {
   const score = Number.isFinite(Number(report.score)) ? Number(report.score) : 0;
   const aeo = Number.isFinite(Number(report.scores?.aeo)) ? Number(report.scores?.aeo) : 0;
   const geo = Number.isFinite(Number(report.scores?.geo)) ? Number(report.scores?.geo) : 0;
   const lines: string[] = [
     "PROFIT RESCUE AI",
-    "WEBSITE SEO + AI VISIBILITY AUDIT",
+    "AI VISIBILITY & REVENUE LEAK AUDIT",
     "Order: " + orderId,
     "Generated: " + new Date().toISOString(),
     "",
@@ -119,6 +119,23 @@ export function buildWebsiteAuditPdf(report: WebsiteAuditResult, orderId: string
     }
   }
 
+  if (profitReport) {
+    lines.push("REVENUE LEAK DIAGNOSTIC");
+    lines.push("Net profit/order: " + clean(profitReport.currency) + " " + Number(profitReport.profit || 0).toFixed(2));
+    lines.push("Net contribution margin: " + Number(profitReport.margin || 0).toFixed(2) + "%");
+    lines.push("Max safe CAC: " + clean(profitReport.currency) + " " + Number(profitReport.maxCac || 0).toFixed(2));
+    lines.push("Break-even ROAS: " + (profitReport.breakEvenRoas ? Number(profitReport.breakEvenRoas).toFixed(2) + "x" : "-"));
+    lines.push("Break-even price: " + clean(profitReport.currency) + " " + Number(profitReport.breakEvenPrice || 0).toFixed(2));
+    lines.push("Decision: " + clean(profitReport.decision));
+    lines.push("");
+    lines.push("TOP REVENUE LEAKS");
+    for (const item of (profitReport.leaks || []).slice(0,3)) lines.push("- " + clean(item,300));
+    lines.push("");
+    lines.push("PRIORITIZED REVENUE ACTIONS");
+    for (const item of (profitReport.actions || []).slice(0,3)) lines.push("- " + clean(item,300));
+    lines.push("");
+  }
+
   lines.push("CATEGORY SUMMARY");
   for (const [category, items] of Object.entries(metrics)) {
     const arr = Array.isArray(items) ? items : [];
@@ -131,7 +148,7 @@ export function buildWebsiteAuditPdf(report: WebsiteAuditResult, orderId: string
   lines.push(
     "",
     "DELIVERY NOTE",
-    "This report is a deterministic audit of the submitted public URL using the fulfillment engine available at purchase time.",
+    "This report combines public website/AI-visibility evidence with a deterministic order-economics diagnostic based on buyer-submitted figures.",
     "It does not guarantee search rankings, traffic, conversions, or revenue uplift.",
     "The buyer confirmed they own, manage, or have permission to audit the submitted site."
   );
