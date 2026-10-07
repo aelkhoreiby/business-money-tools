@@ -141,3 +141,30 @@ for (const target of targets) {
     is_digital: product?.is_digital ?? null,
   }));
 }
+
+const legacyIds = [
+  "cfc7979d-12ac-4084-8a4e-4ce2f5e92f30",
+  "baa1bde5-51d2-4fe7-8380-8971d611179a",
+  "a9281fdc-d153-4c32-83e2-e468e1911e85",
+  "d4e7db6c-62d1-44d1-8fcf-db5e626cf019",
+  "55bb7f42-54e4-424e-a703-1f537c4629b7",
+];
+
+for (const id of legacyIds) {
+  try {
+    const response = await fetch(base + "/" + encodeURIComponent(id), {
+      method: "PATCH",
+      headers,
+      body: JSON.stringify({ hidden: true }),
+      cache: "no-store",
+    });
+    const body = await response.json().catch(() => null);
+    if (!response.ok) {
+      console.log(JSON.stringify({ action: "legacy-hide-failed", id, status: response.status, body }));
+    } else {
+      console.log(JSON.stringify({ action: "legacy-hidden", id, hidden: body?.hidden ?? body?.data?.hidden ?? null }));
+    }
+  } catch (error) {
+    console.log(JSON.stringify({ action: "legacy-hide-error", id, error: String(error?.message || error) }));
+  }
+}
