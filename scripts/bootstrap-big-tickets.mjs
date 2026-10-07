@@ -18,6 +18,7 @@ const targets = [
     slug: "ai-visibility-revenue-leak-audit",
     sku: "BMT-BIG-AUDIT-499",
     price: 499,
+    image: "https://business-money-tools.vercel.app/product-images/profit-rescue-report.svg",
   },
   {
     key: "INTEL",
@@ -25,6 +26,7 @@ const targets = [
     slug: "multi-source-business-intelligence-data-extraction",
     sku: "BMT-BIG-INTEL-999",
     price: 999,
+    image: "https://business-money-tools.vercel.app/product-images/guard-pro.svg",
   },
   {
     key: "PROSPECTS",
@@ -32,6 +34,7 @@ const targets = [
     slug: "b2b-prospect-intelligence-pack",
     sku: "BMT-BIG-PROSPECTS-1499",
     price: 1499,
+    image: "https://business-money-tools.vercel.app/product-images/profit-guard.svg",
   },
 ];
 
@@ -56,6 +59,8 @@ for (const target of targets) {
   const payload = {
     name: target.name,
     price: target.price,
+    thumb: target.image,
+    images: [target.image],
     sale_price: target.price,
     description: target.key === "AUDIT"
       ? "<h2>AI Visibility & Revenue Leak Audit</h2><p>One-time decision intelligence audit covering website findings, AI visibility signals, revenue leak diagnostics, economics, and a prioritized PDF action plan.</p><p>Results are based on the submitted website and buyer-provided economics. No ranking, traffic, or revenue guarantees.</p>"
