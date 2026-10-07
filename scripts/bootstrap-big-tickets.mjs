@@ -142,29 +142,66 @@ for (const target of targets) {
   }));
 }
 
-const legacyIds = [
-  "cfc7979d-12ac-4084-8a4e-4ce2f5e92f30",
-  "baa1bde5-51d2-4fe7-8380-8971d611179a",
-  "a9281fdc-d153-4c32-83e2-e468e1911e85",
-  "d4e7db6c-62d1-44d1-8fcf-db5e626cf019",
-  "55bb7f42-54e4-424e-a703-1f537c4629b7",
+const legacyProducts = [
+  {
+    id: "cfc7979d-12ac-4084-8a4e-4ce2f5e92f30",
+    name: "Profit Rescue Report",
+    price: 29,
+    slug: "profit-rescue-report",
+    thumb: "https://business-money-tools.vercel.app/product-images/profit-rescue-report.svg",
+  },
+  {
+    id: "baa1bde5-51d2-4fe7-8380-8971d611179a",
+    name: "Profit Guard - 1 Month",
+    price: 49,
+    slug: "profit-guard-1-month",
+    thumb: "https://business-money-tools.vercel.app/product-images/profit-guard.svg",
+  },
+  {
+    id: "a9281fdc-d153-4c32-83e2-e468e1911e85",
+    name: "Guard Pro - 1 Month",
+    price: 99,
+    slug: "guard-pro-1-month",
+    thumb: "https://business-money-tools.vercel.app/product-images/guard-pro.svg",
+  },
+  {
+    id: "d4e7db6c-62d1-44d1-8fcf-db5e626cf019",
+    name: "Website SEO + AI Visibility Audit",
+    price: 59,
+    slug: "website-seo-ai-visibility-audit",
+    thumb: "https://business-money-tools.vercel.app/product-images/profit-rescue-report.svg",
+  },
+  {
+    id: "55bb7f42-54e4-424e-a703-1f537c4629b7",
+    name: "B2B Contact Research - Up to 100 Companies",
+    price: 249,
+    slug: "b2b-contact-research-100-companies",
+    thumb: "https://business-money-tools.vercel.app/product-images/guard-pro.svg",
+  },
 ];
 
-for (const id of legacyIds) {
+for (const legacy of legacyProducts) {
   try {
-    const response = await fetch(base + "/" + encodeURIComponent(id), {
+    const response = await fetch(base + "/" + encodeURIComponent(legacy.id), {
       method: "PATCH",
       headers,
-      body: JSON.stringify({ hidden: true }),
+      body: JSON.stringify({
+        name: legacy.name,
+        price: legacy.price,
+        slug: legacy.slug,
+        thumb: legacy.thumb,
+        images: [legacy.thumb],
+        hidden: true,
+      }),
       cache: "no-store",
     });
     const body = await response.json().catch(() => null);
     if (!response.ok) {
-      console.log(JSON.stringify({ action: "legacy-hide-failed", id, status: response.status, body }));
+      console.log(JSON.stringify({ action: "legacy-hide-failed", id: legacy.id, status: response.status, body }));
     } else {
-      console.log(JSON.stringify({ action: "legacy-hidden", id, hidden: body?.hidden ?? body?.data?.hidden ?? null }));
+      console.log(JSON.stringify({ action: "legacy-hidden", id: legacy.id, hidden: body?.hidden ?? body?.data?.hidden ?? null }));
     }
   } catch (error) {
-    console.log(JSON.stringify({ action: "legacy-hide-error", id, error: String(error?.message || error) }));
+    console.log(JSON.stringify({ action: "legacy-hide-error", id: legacy.id, error: String(error?.message || error) }));
   }
 }
