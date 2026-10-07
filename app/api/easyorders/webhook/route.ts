@@ -135,11 +135,14 @@ export async function POST(req: NextRequest) {
       // Delivery remains usable if order-status update permission is unavailable.
     }
 
+    const handoff = plan === "AUDIT"
+      ? "Your paid audit intake is ready."
+      : "Your paid delivery brief is ready.";
+
     await addPublicNote(
       orderId,
       order?.store_id,
-      "Payment verified (ref " + paymentRef + "). Your " + PLAN_INFO[plan].name +
-        " fulfillment is ready. Complete your secure intake here: " + intake
+      "Payment verified (ref " + paymentRef + "). " + handoff + " Complete your secure intake here: " + intake
     );
 
     return NextResponse.json({
