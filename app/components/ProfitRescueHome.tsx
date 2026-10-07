@@ -58,13 +58,13 @@ const copy = {
     noNeed: "لا تحتاج لاختيار الثلاثة. اختر المستوى الذي يناسب وضع متجرك الآن.",
     planBestFor: {
       RESCUE: "من يريد تشخيصًا واضحًا مرة واحدة.",
-      GUARD: "من يريد متابعة مستمرة خلال الشهر.",
+      GUARD: "من يريد حماية ربحية واضحة في شراء واحد.",
       PRO: "من يدير أكثر من متجر أو يحتاج تغطية أوسع."
     },
     plans: [
       ["RESCUE", "$29", "Profit Rescue Report", ["أهم 3 تسريبات في الربح", "خطة إجراءات مرتبة بالأولوية", "تقرير PDF جاهز"]],
-      ["GUARD", "$49 / mo", "Profit Guard", ["تنبيهات مستمرة", "Scale Guard", "ملخص أسبوعي بالذكاء الاصطناعي"]],
-      ["PRO", "$99 / mo", "Guard Pro", ["دعم متعدد المتاجر", "RTO + AI visibility", "تحليلات وأولوية أعلى"]]
+      ["GUARD", "$49", "Profit Guard", ["تنبيهات ربحية", "Scale Guard", "ملخص ذكي للعمل"]],
+      ["PRO", "$99", "Guard Pro", ["دعم متعدد المتاجر", "RTO + AI visibility", "تحليلات وأولوية أعلى"]]
     ],
     funnelFallback: "التجربة الكاملة تبدأ من الفحص المجاني، ثم نوصلك مباشرة للباقة المناسبة.",
     agentsKicker: "لوكلاء الذكاء الاصطناعي",
@@ -129,13 +129,13 @@ const copy = {
     noNeed: "You do not need all three. Pick the level that fits your store today.",
     planBestFor: {
       RESCUE: "A one-time, decision-ready profit diagnosis.",
-      GUARD: "Ongoing protection and monthly monitoring.",
-      PRO: "Multi-store operators who need broader coverage."
+      GUARD: "One-time profit protection and monitoring setup.",
+      PRO: "Multi-store operators who need broader one-time coverage."
     },
     plans: [
       ["RESCUE", "$29", "Profit Rescue Report", ["Top 3 profit leaks", "Prioritized action plan", "PDF-ready report"]],
-      ["GUARD", "$49 / mo", "Profit Guard", ["Ongoing alerts", "Scale Guard", "Weekly AI briefing"]],
-      ["PRO", "$99 / mo", "Guard Pro", ["Multi-store support", "RTO + AI visibility", "Priority intelligence"]]
+      ["GUARD", "$49", "Profit Guard", ["Profit alerts", "Scale Guard", "Weekly AI briefing"]],
+      ["PRO", "$99", "Guard Pro", ["Multi-store support", "RTO + AI visibility", "Priority intelligence"]]
     ],
     funnelFallback: "Start with the free diagnostic, then continue directly into the package that fits your next move.",
     agentsKicker: "FOR AI AGENTS",
@@ -156,8 +156,8 @@ const planDetails: Record<PaidPlan, {
   image: string;
 }> = {
   RESCUE: { badge: "ONE-TIME", image: "/product-images/profit-rescue-report.svg" },
-  GUARD: { badge: "MONTHLY", image: "/product-images/profit-guard.svg" },
-  PRO: { badge: "MONTHLY", image: "/product-images/guard-pro.svg" },
+  GUARD: { badge: "ONE-TIME", image: "/product-images/profit-guard.svg" },
+  PRO: { badge: "ONE-TIME", image: "/product-images/guard-pro.svg" },
 };
 
 const checkoutRoutes: Record<PaidPlan, string> = {
