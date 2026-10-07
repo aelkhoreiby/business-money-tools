@@ -107,7 +107,7 @@ for (const target of targets) {
     String(existing.sku || "") !== target.sku ||
     currentPrice !== target.price ||
     currentSale !== target.price ||
-    existing.hidden === true ||
+    existing.hidden === true;
 
   if (!needsUpdate) {
     console.log(JSON.stringify({
