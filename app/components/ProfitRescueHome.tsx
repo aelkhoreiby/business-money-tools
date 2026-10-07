@@ -4,192 +4,134 @@ import { useState } from "react";
 import Link from "next/link";
 import EcommerceProfitCalculator from "./EcommerceProfitCalculator";
 
-type PaidPlan = "RESCUE" | "GUARD" | "PRO";
+type PaidPlan = "AUDIT" | "INTEL" | "PROSPECTS";
 
 const copy = {
-  ar: {
-    nav: ["التشخيص", "كيف يعمل", "الباقات", "لوكلاء الذكاء الاصطناعي"],
-    badge: "AI PROFIT INTELLIGENCE • GCC FIRST • GLOBAL READY",
-    title1: "متجرك يبيع.",
-    title2: "لكن هل يحقق ربحًا فعلًا؟",
-    sub: "يحلّل Profit Rescue AI اقتصاديات متجرك، يكشف تسريبات الربح، ويرتّب لك أولويات الإصلاح قبل أن تزيد الإنفاق.",
-    cta: "ابدأ الفحص المجاني",
-    secondary: "اكتشف كيف يعمل",
-    trust: "بدون بطاقة • نتائج فورية • AED / SAR / USD",
-    live: "معاينة تشخيص الربحية",
-    leak: "تسرّب في الربح",
-    leakText: "ROAS يبدو جيدًا، لكن تكلفة اكتساب العميل الحالية تستهلك معظم هامش الربح.",
-    action: "أفضل خطوة تالية",
-    actionText: "اخفض CAC المستهدف أو ارفع السعر قبل زيادة الميزانية.",
-    impact: "+ SAR 2,840 / month",
-    freeKicker: "فحص الربحية المجاني",
-    freeTitle: "اعرف أرقامك قبل أن تزيد الإنفاق الإعلاني",
-    freeText: "حاسبة مجانية تحسب ربح الطلب بعد الخصومات والمرتجعات والشحن والرسوم وتكلفة اكتساب العميل.",
-    howKicker: "محرك واحد • مداخل متعددة",
-    howTitle: "ابدأ من المشكلة التي تؤلمك — وانتهِ إلى القرار الصحيح",
-    howCards: [
-      ["01", "Profit Truth", "هل يحقق كل طلب ربحًا؟"],
-      ["02", "CAC Rescue", "ما الحد الآمن لتكلفة اكتساب العميل؟"],
-      ["03", "RTO Rescue", "كم تخسر بسبب المرتجعات؟"],
-      ["04", "AI Visibility", "هل يظهر متجرك عندما يبحث العملاء عبر الذكاء الاصطناعي؟"],
-      ["05", "Page Rescue", "لماذا لا تتحول صفحة المنتج إلى مبيعات؟"],
-      ["06", "Scale Guard", "هل التوسع يزيد الربح أم يضغط الهامش؟"]
-    ],
-    doctorKicker: "PROFIT RESCUE AI • طبيب المتجر بالذكاء الاصطناعي",
-    doctorTitle: "من الأرقام إلى قرار واضح",
-    doctorText: "بدل عشرات الأرقام بلا أولوية، تحصل على ثلاث حركات واضحة: FIX • SCALE • STOP.",
-    demoLabel: "مثال توضيحي",
-    demoTitle: "تقرير إنقاذ نموذجي",
-    demoItems: [
-      ["STOP", "Hero Bundle", "− SAR 11.40 / order", "الخصم + الشحن + CAC يتجاوزون الحد الآمن."],
-      ["FIX", "AOV", "+ SAR 1,180 / mo", "Bundle أبسط يمكن أن يرفع متوسط قيمة السلة."],
-      ["SCALE", "Retargeting", "+ SAR 2,840 / mo", "أقوى إشارة لمساهمة الربح في العينة."]
-    ],
-    pricingKicker: "ادفع مقابل النتيجة",
-    pricingTitle: "اختر مستوى المساعدة المناسب لك",
-    pricingText: "ابدأ بفحص مجاني، ثم اختر خدمة واحدة واضحة بدل شراء تعقيد لا تحتاجه.",
-    freePlan: "ابدأ مجانًا",
-    selectPlan: "اختيار الباقة",
-    selectedPlan: "الباقة المختارة",
-    popular: "أفضل ترقية أولى",
-    bestFor: "مناسبة لـ",
-    secure: "متابعة إلى الدفع الآمن",
-    secureNote: "ستفتح صفحة الدفع الآمنة في نافذة مستقلة، وتظل قسيمة Profit Rescue AI متاحة هنا.",
-    noNeed: "لا تحتاج لاختيار الثلاثة. اختر المستوى الذي يناسب وضع متجرك الآن.",
-    planBestFor: {
-      RESCUE: "من يريد تشخيصًا واضحًا مرة واحدة.",
-      GUARD: "من يريد حماية ربحية واضحة في شراء واحد.",
-      PRO: "من يدير أكثر من متجر أو يحتاج تغطية أوسع."
-    },
-    plans: [
-      ["RESCUE", "$29", "Profit Rescue Report", ["أهم 3 تسريبات في الربح", "خطة إجراءات مرتبة بالأولوية", "تقرير PDF جاهز"]],
-      ["GUARD", "$49", "Profit Guard", ["تنبيهات ربحية", "Scale Guard", "ملخص ذكي للعمل"]],
-      ["PRO", "$99", "Guard Pro", ["دعم متعدد المتاجر", "RTO + AI visibility", "تحليلات وأولوية أعلى"]]
-    ],
-    funnelFallback: "التجربة الكاملة تبدأ من الفحص المجاني، ثم نوصلك مباشرة للباقة المناسبة.",
-    agentsKicker: "لوكلاء الذكاء الاصطناعي",
-    agentsTitle: "نفس الذكاء — بصيغة قابلة للتنفيذ آليًا",
-    agentsText: "الوكلاء يحتاجون endpoint واضحًا، دفعًا بـx402، وJSON قابلًا للقراءة والتنفيذ.",
-    agentsCode: "{\n  \"profit_status\": \"at_risk\",\n  \"max_safe_cac\": 34.20,\n  \"next_move\": \"FIX_PRICE\",\n  \"expected_impact\": 2840,\n  \"currency\": \"SAR\"\n}",
-    finalKicker: "متجرك. أرقامك. خطوتك التالية.",
-    finalTitle: "دع الـAI يجيب عن السؤال الأصعب:",
-    finalAccent: "أين يتسرّب الربح؟",
-    finalText: "ابدأ بفحص الربحية المجاني، ثم اختر Rescue Report أو Profit Guard أو Guard Pro بناءً على احتياجك.",
-    finalCta: "ابدأ الآن — مجانًا",
-    footer: "Profit Rescue AI • AI-powered ecommerce profit intelligence"
-  },
   en: {
-    nav: ["Diagnostic", "How it works", "Plans", "For AI Agents"],
-    badge: "AI PROFIT INTELLIGENCE • GCC FIRST • GLOBAL READY",
-    title1: "Your store sells.",
-    title2: "But does it actually make money?",
-    sub: "Profit Rescue AI analyzes your store economics, finds profit leaks, and ranks what deserves attention before you add more spend.",
-    cta: "Run free diagnostic",
-    secondary: "See how it works",
-    trust: "No card • Instant results • AED / SAR / USD",
-    live: "PROFIT DIAGNOSTIC PREVIEW",
-    leak: "Profit Leak",
-    leakText: "ROAS looks healthy, but current CAC is consuming most of the available contribution profit.",
-    action: "NEXT BEST MOVE",
-    actionText: "Lower your target CAC or raise price before increasing budget.",
-    impact: "+ SAR 2,840 / month",
-    freeKicker: "FREE PROFIT CHECK",
-    freeTitle: "Know your numbers before you increase ad spend",
-    freeText: "A free calculator estimates order profit after discounts, returns, shipping, fees, and customer acquisition cost.",
-    howKicker: "ONE ENGINE • MANY ENTRY DOORS",
-    howTitle: "Start with the pain you feel — end with the decision you need",
-    howCards: [
-      ["01", "Profit Truth", "Is every order actually profitable?"],
-      ["02", "CAC Rescue", "What is your safe acquisition ceiling?"],
-      ["03", "RTO Rescue", "How much margin is lost to returns?"],
-      ["04", "AI Visibility", "Does AI surface your store to buyers?"],
-      ["05", "Page Rescue", "Why is the product page under-converting?"],
-      ["06", "Scale Guard", "Will scaling grow profit or compress margin?"]
-    ],
-    doctorKicker: "PROFIT RESCUE AI • THE AI STORE DOCTOR",
-    doctorTitle: "From numbers to a clear decision",
-    doctorText: "Instead of dozens of numbers with no priority, get three clear moves: FIX • SCALE • STOP.",
-    demoLabel: "ILLUSTRATIVE OUTPUT",
-    demoTitle: "Sample rescue report",
-    demoItems: [
-      ["STOP", "Hero Bundle", "− SAR 11.40 / order", "Discount + shipping + CAC cross the safe line."],
-      ["FIX", "AOV", "+ SAR 1,180 / mo", "A simpler bundle can lift basket value."],
-      ["SCALE", "Retargeting", "+ SAR 2,840 / mo", "Strongest contribution-profit signal in the sample."]
-    ],
-    pricingKicker: "PAY FOR THE OUTCOME",
-    pricingTitle: "Choose the level of help you need",
-    pricingText: "Start free, then buy one clear outcome instead of a stack of features you do not need.",
-    freePlan: "Start free",
-    selectPlan: "Select plan",
-    selectedPlan: "Selected plan",
-    popular: "BEST FIRST UPGRADE",
+    nav: ["Diagnostic", "What you get", "Big Tickets", "For AI Agents"],
+    badge: "PROFIT RESCUE AI • DECISION INTELLIGENCE",
+    title1: "Stop selling small fixes.",
+    title2: "Sell decision-ready intelligence.",
+    sub: "Three high-value offers built around real business problems: AI visibility and revenue leaks, multi-source intelligence, and B2B prospect intelligence.",
+    cta: "See the 3 Big Tickets",
+    secondary: "Run free diagnostic",
+    trust: "One-time delivery • Source-backed • Public-data first",
+    freeKicker: "FREE ENTRY POINT",
+    freeTitle: "Use the calculator to surface the pain.",
+    freeText: "The free Profit Check identifies order-level economics. When the problem is bigger than a calculator, move the buyer into one of the three Big Tickets.",
+    whatKicker: "ONE ENGINE • THREE HIGH-VALUE OUTCOMES",
+    whatTitle: "Each ticket owns a business problem.",
+    whatText: "No feature bundles. No fake recurring plan. Each purchase maps to a concrete research or intelligence deliverable.",
+    pricingKicker: "THE BIG TICKETS",
+    pricingTitle: "Three offers. Three price points.",
+    pricingText: "The site now sells only these three paid offers.",
+    select: "Start secure checkout",
+    selected: "Selected",
     bestFor: "Best for",
-    secure: "Continue to secure checkout",
-    secureNote: "Secure checkout opens in a separate tab, while your Profit Rescue AI funnel stays open here.",
-    noNeed: "You do not need all three. Pick the level that fits your store today.",
-    planBestFor: {
-      RESCUE: "A one-time, decision-ready profit diagnosis.",
-      GUARD: "One-time profit protection and monitoring setup.",
-      PRO: "Multi-store operators who need broader one-time coverage."
+    auditBest: "Operators who need to know why AI visibility, conversion, or revenue is leaking.",
+    intelBest: "Teams that need structured multi-source business data for a decision, market map, or workflow.",
+    prospectsBest: "Sales teams that need a source-backed target-account and contact intelligence pack.",
+    planDescriptions: {
+      AUDIT: "AI Visibility & Revenue Leak Audit",
+      INTEL: "Multi-Source Business Intelligence / Data Extraction",
+      PROSPECTS: "B2B Prospect Intelligence Pack",
     },
-    plans: [
-      ["RESCUE", "$29", "Profit Rescue Report", ["Top 3 profit leaks", "Prioritized action plan", "PDF-ready report"]],
-      ["GUARD", "$49", "Profit Guard", ["Profit alerts", "Scale Guard", "Weekly AI briefing"]],
-      ["PRO", "$99", "Guard Pro", ["Multi-store support", "RTO + AI visibility", "Priority intelligence"]]
-    ],
-    funnelFallback: "Start with the free diagnostic, then continue directly into the package that fits your next move.",
+    planFeatures: {
+      AUDIT: ["Website + AI visibility assessment", "Revenue / conversion leak analysis", "Prioritized executive action plan", "Client-ready evidence PDF"],
+      INTEL: ["Multi-source public web research", "Structured extraction + normalization", "Company / competitor intelligence", "CSV/JSON decision dataset + brief"],
+      PROSPECTS: ["Target-account research", "Public contact + company enrichment", "Source-backed fit signals", "Outreach-ready CSV/JSON pack"],
+    },
     agentsKicker: "FOR AI AGENTS",
-    agentsTitle: "Same intelligence. Machine-readable.",
-    agentsText: "Agents need a clear endpoint, x402 payment, and executable JSON — not another dashboard.",
-    agentsCode: "{\n  \"profit_status\": \"at_risk\",\n  \"max_safe_cac\": 34.20,\n  \"next_move\": \"FIX_PRICE\",\n  \"expected_impact\": 2840,\n  \"currency\": \"SAR\"\n}",
-    finalKicker: "YOUR STORE. YOUR NUMBERS. YOUR NEXT MOVE.",
-    finalTitle: "Let AI answer the hardest question:",
-    finalAccent: "Where is the money leaking?",
-    finalText: "Start with the free Profit Check, then choose Rescue Report, Profit Guard, or Guard Pro based on the level of help you actually need.",
-    finalCta: "Start free",
-    footer: "Profit Rescue AI • AI-powered ecommerce profit intelligence"
+    agentsTitle: "Human-readable offer. Machine-readable execution.",
+    agentsText: "NOVA already exposes the underlying research and extraction capabilities as structured services. The Big Tickets package those primitives into a higher-value business outcome.",
+    finalTitle: "Three Big Tickets. Nothing else.",
+    finalText: "Use the free calculator as the entry point. Sell only the $499, $999, or $1,499 outcome.",
+    finalCta: "View Big Tickets",
+    footer: "Profit Rescue AI • Decision intelligence for operators"
+  },
+  ar: {
+    nav: ["التشخيص", "المخرجات", "الباقات", "لوكلاء الذكاء الاصطناعي"],
+    badge: "PROFIT RESCUE AI • ذكاء القرار",
+    title1: "نوقف بيع الحلول الصغيرة.",
+    title2: "ونبيع ذكاء جاهزًا للقرار.",
+    sub: "ثلاث خدمات High-Ticket فقط: كشف مشاكل الظهور بالـAI وتسريب الإيراد، Business Intelligence واستخراج البيانات، وB2B Prospect Intelligence.",
+    cta: "شاهد الباقات الثلاث",
+    secondary: "ابدأ الفحص المجاني",
+    trust: "شراء مرة واحدة • بيانات بمصادر • Public-data first",
+    freeKicker: "مدخل مجاني",
+    freeTitle: "استخدم الحاسبة لإظهار المشكلة.",
+    freeText: "Profit Check تكشف اقتصاديات الطلب. عندما تكون المشكلة أكبر من حاسبة، ننقل العميل إلى واحدة من الباقات الثلاث.",
+    whatKicker: "محرك واحد • ثلاث نتائج عالية القيمة",
+    whatTitle: "كل باقة تملك مشكلة تجارية واضحة.",
+    whatText: "لا تجميع Features. لا اشتراكات وهمية. كل شراء مرتبط بمخرج بحث أو Intelligence محدد.",
+    pricingKicker: "الباقات الكبيرة",
+    pricingTitle: "3 عروض فقط.",
+    pricingText: "الموقع يبيع هذه العروض الثلاثة فقط كمدفوعات عالية القيمة.",
+    select: "ابدأ الدفع الآمن",
+    selected: "المختارة",
+    bestFor: "مناسبة لـ",
+    auditBest: "أصحاب المتاجر والفرق الذين يريدون معرفة أين يتسرب الظهور أو التحويل أو الإيراد.",
+    intelBest: "الفرق التي تحتاج بيانات Business Intelligence متعددة المصادر لاتخاذ قرار أو بناء خريطة سوق.",
+    prospectsBest: "فرق المبيعات التي تحتاج Target Accounts وبيانات تواصل ومؤشرات Fit موثقة بالمصادر.",
+    planDescriptions: {
+      AUDIT: "AI Visibility & Revenue Leak Audit",
+      INTEL: "Multi-Source Business Intelligence / Data Extraction",
+      PROSPECTS: "B2B Prospect Intelligence Pack",
+    },
+    planFeatures: {
+      AUDIT: ["تقييم الموقع والظهور داخل أنظمة AI", "تحليل تسريبات الإيراد والتحويل", "خطة إجراءات تنفيذية مرتبة", "PDF جاهز للعرض على العميل"],
+      INTEL: ["بحث عام متعدد المصادر", "استخراج وتنميط البيانات", "Company / competitor intelligence", "Dataset + brief بصيغة CSV/JSON"],
+      PROSPECTS: ["Target-account research", "إثراء بيانات الشركة ووسائل التواصل العامة", "مؤشرات Fit موثقة بالمصادر", "حزمة CSV/JSON جاهزة للمبيعات"],
+    },
+    agentsKicker: "للوكلاء الذكيين",
+    agentsTitle: "عرض مفهوم للإنسان. وتنفيذ منظم للآلة.",
+    agentsText: "NOVA لديها بالفعل قدرات البحث والاستخراج كخدمات Structured. هذه الباقات تجمعها في نتيجة تجارية أعلى قيمة.",
+    finalTitle: "ثلاث باقات كبيرة. ولا شيء غيرها.",
+    finalText: "استخدم الحاسبة المجانية كمدخل، وبيع فقط نتيجة $499 أو $999 أو $1,499.",
+    finalCta: "شاهد الباقات",
+    footer: "Profit Rescue AI • Decision intelligence for operators"
   }
 } as const;
 
-const planDetails: Record<PaidPlan, {
+const plans: Array<{
+  key: PaidPlan;
+  price: string;
   badge: string;
+  bestKey: "auditBest" | "intelBest" | "prospectsBest";
   image: string;
-}> = {
-  RESCUE: { badge: "ONE-TIME", image: "/product-images/profit-rescue-report.svg" },
-  GUARD: { badge: "ONE-TIME", image: "/product-images/profit-guard.svg" },
-  PRO: { badge: "ONE-TIME", image: "/product-images/guard-pro.svg" },
-};
+}> = [
+  { key: "AUDIT", price: "$499", badge: "REVENUE + AI VISIBILITY", bestKey: "auditBest", image: "/product-images/profit-rescue-report.svg" },
+  { key: "INTEL", price: "$999", badge: "MULTI-SOURCE DATA", bestKey: "intelBest", image: "/product-images/guard-pro.svg" },
+  { key: "PROSPECTS", price: "$1,499", badge: "B2B SALES INTELLIGENCE", bestKey: "prospectsBest", image: "/product-images/profit-guard.svg" },
+];
 
 const checkoutRoutes: Record<PaidPlan, string> = {
-  RESCUE: "/api/checkout?plan=RESCUE",
-  GUARD: "/api/checkout?plan=GUARD",
-  PRO: "/api/checkout?plan=PRO",
+  AUDIT: "/api/checkout?plan=AUDIT",
+  INTEL: "/api/checkout?plan=INTEL",
+  PROSPECTS: "/api/checkout?plan=PROSPECTS",
 };
 
 export default function ProfitRescueHome() {
-  const [lang, setLang] = useState<"ar" | "en">("en");
+  const [lang, setLang] = useState<"en" | "ar">("en");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<PaidPlan>("RESCUE");
+  const [selectedPlan, setSelectedPlan] = useState<PaidPlan>("AUDIT");
   const t = copy[lang];
   const ar = lang === "ar";
-  const selected = t.plans.find((plan) => plan[0] === selectedPlan) ?? t.plans[0];
+  const selected = plans.find((plan) => plan.key === selectedPlan) ?? plans[0];
 
   function choosePlan(plan: PaidPlan) {
     setSelectedPlan(plan);
     if (typeof window !== "undefined" && typeof window.gtag === "function") {
-      window.gtag("event", "select_offer", {
-        item_id: plan,
-        item_name: plan,
-      });
+      window.gtag("event", "select_offer", { item_id: plan, item_name: t.planDescriptions[plan] });
     }
   }
 
   function beginCheckout() {
     if (typeof window !== "undefined" && typeof window.gtag === "function") {
       window.gtag("event", "begin_checkout", {
-        item_id: selectedPlan,
-        item_name: selected[2],
-        value: Number.parseFloat(selected[1].replace(/[^0-9.]/g, "")) || 0,
+        item_id: selected.key,
+        item_name: t.planDescriptions[selected.key],
+        value: Number.parseFloat(selected.price.replace(/[^0-9.]/g, "")) || 0,
       });
     }
   }
@@ -207,10 +149,11 @@ export default function ProfitRescueHome() {
         </Link>
 
         <nav className="nav-links" aria-label="Primary">
-          <a href="#diagnostic">{t.nav[0]}</a>
-          <a href="#how">{t.nav[1]}</a>
-          <a href="#pricing">{t.nav[2]}</a>
-          <a href="#agents">{t.nav[3]}</a>
+          {t.nav.map((item, index) => (
+            <a key={item} href={index === 0 ? "#diagnostic" : index === 1 ? "#what-you-get" : index === 2 ? "#pricing" : "#agents"}>
+              {item}
+            </a>
+          ))}
         </nav>
 
         <button
@@ -221,27 +164,24 @@ export default function ProfitRescueHome() {
           aria-label={ar ? "فتح قائمة التنقل" : "Open navigation"}
           onClick={() => setMobileNavOpen((open) => !open)}
         >
-          <span />
-          <span />
-          <span />
+          <span /><span /><span />
         </button>
 
         <div className="nav-actions">
-          <a className="nav-cta" href="#diagnostic">{ar ? "الفحص المجاني" : "Free scan"}</a>
-          <button className="lang-toggle" onClick={() => setLang(ar ? "en" : "ar")}>
-            {ar ? "EN" : "عربي"}
-          </button>
+          <a className="nav-cta" href="#pricing">{ar ? "الباقات" : "Big Tickets"}</a>
+          <button className="lang-toggle" onClick={() => setLang(ar ? "en" : "ar")}>{ar ? "EN" : "عربي"}</button>
         </div>
 
-        <nav
-          id="mobile-navigation"
-          className={"mobile-nav " + (mobileNavOpen ? "open" : "")}
-          aria-label={ar ? "التنقل" : "Mobile navigation"}
-        >
-          <a href="#diagnostic" onClick={() => setMobileNavOpen(false)}>{t.nav[0]}</a>
-          <a href="#how" onClick={() => setMobileNavOpen(false)}>{t.nav[1]}</a>
-          <a href="#pricing" onClick={() => setMobileNavOpen(false)}>{t.nav[2]}</a>
-          <a href="#agents" onClick={() => setMobileNavOpen(false)}>{t.nav[3]}</a>
+        <nav id="mobile-navigation" className={"mobile-nav " + (mobileNavOpen ? "open" : "")}>
+          {t.nav.map((item, index) => (
+            <a
+              key={item}
+              href={index === 0 ? "#diagnostic" : index === 1 ? "#what-you-get" : index === 2 ? "#pricing" : "#agents"}
+              onClick={() => setMobileNavOpen(false)}
+            >
+              {item}
+            </a>
+          ))}
         </nav>
       </header>
 
@@ -250,53 +190,50 @@ export default function ProfitRescueHome() {
           <span className="eyebrow-pill"><i />{t.badge}</span>
           <div className="hero-brand-nameplate" aria-label="Profit Rescue AI">
             <span className="hero-brand-mark">PR</span>
-            <span><strong>Profit Rescue AI</strong><small>PROFIT INTELLIGENCE FOR ECOMMERCE</small></span>
+            <span><strong>Profit Rescue AI</strong><small>DECISION INTELLIGENCE</small></span>
           </div>
           <h1>{t.title1}<br /><span className="gradient-text">{t.title2}</span></h1>
           <p className="hero-sub">{t.sub}</p>
 
           <div className="hero-actions">
-            <a className="primary-btn" href="#diagnostic">{t.cta}<span>↗</span></a>
-            <a className="ghost-btn" href="#how">{t.secondary}</a>
+            <a className="primary-btn" href="#pricing">{t.cta}<span>↗</span></a>
+            <a className="ghost-btn" href="#diagnostic">{t.secondary}</a>
           </div>
 
           <div className="trust-line">
             <span>✦ {t.trust}</span>
-            <span className="secure-chip">● ENGINE PREVIEW</span>
+            <span className="secure-chip">● 3 OFFERS ONLY</span>
           </div>
         </div>
 
         <div className="hero-visual">
           <div className="hero-brand-art">
-            <img src="/brand/profit-rescue-ai-brand-hero.png" alt="Profit Rescue AI brand mark" />
+            <img src="/brand/profit-rescue-ai-brand-hero.png" alt="Profit Rescue AI" />
           </div>
           <div className="scanner-card">
             <div className="scanner-top">
               <div>
-                <span className="mini-label">{t.live}</span>
-                <strong>Store Health <b>68</b><small>/100</small></strong>
+                <span className="mini-label">BIG TICKET STACK</span>
+                <strong>3 <b>OUTCOMES</b><small> ONLY</small></strong>
               </div>
               <span className="pulse-dot" />
             </div>
-
             <div className="health-ring">
-              <div className="ring-inner"><strong>68</strong><span>Profit health</span></div>
+              <div className="ring-inner"><strong>$499</strong><span>entry ticket</span></div>
             </div>
-
             <div className="signal-grid">
               <div className="signal danger">
-                <span>01</span><strong>{t.leak}</strong><em>− 7.4%</em>
-                <p>{t.leakText}</p>
+                <span>01</span><strong>$499 AUDIT</strong><em>AI + REVENUE</em>
+                <p>Find visibility, conversion, and revenue leaks.</p>
               </div>
               <div className="signal action">
-                <span>{t.action}</span><strong>{t.impact}</strong>
-                <p>{t.actionText}</p>
+                <span>02 / 03</span><strong>$999 → $1,499</strong>
+                <p>Build the intelligence layer for data or B2B growth.</p>
               </div>
             </div>
-
             <div className="scan-footer">
-              <div><span className="bar-label">CONFIDENCE</span><div className="bar"><i /></div></div>
-              <strong>91%</strong>
+              <div><span className="bar-label">OFFER CLARITY</span><div className="bar"><i /></div></div>
+              <strong>3/3</strong>
             </div>
           </div>
         </div>
@@ -313,35 +250,36 @@ export default function ProfitRescueHome() {
           <EcommerceProfitCalculator ar={ar} />
           <aside className="doctor-card">
             <div className="doctor-orbit" />
-            <span className="section-kicker">{t.doctorKicker}</span>
-            <h3>{t.doctorTitle}</h3>
-            <p>{t.doctorText}</p>
+            <span className="section-kicker">ENTRY → TICKET</span>
+            <h3>Free signal. Paid decision.</h3>
+            <p>The calculator is a lead-in, not a paid offer. The paid layer is now intentionally limited to three Big Tickets.</p>
             <div className="doctor-demo">
-              <div className="demo-header"><span>{t.demoLabel}</span><b>AI</b></div>
-              <h4>{t.demoTitle}</h4>
-              {t.demoItems.map((item) => (
-                <div className="demo-row" key={item[0] + item[1]}>
-                  <span className={"demo-tag " + item[0].toLowerCase()}>{item[0]}</span>
-                  <div><strong>{item[1]}</strong><small>{item[3]}</small></div>
-                  <b>{item[2]}</b>
+              <div className="demo-header"><span>OFFER LADDER</span><b>3</b></div>
+              <h4>$499 / $999 / $1,499</h4>
+              {plans.map((plan) => (
+                <div className="demo-row" key={plan.key}>
+                  <span className="demo-tag">{plan.key === "AUDIT" ? "01" : plan.key === "INTEL" ? "02" : "03"}</span>
+                  <div><strong>{t.planDescriptions[plan.key]}</strong><small>{t[plan.bestKey]}</small></div>
+                  <b>{plan.price}</b>
                 </div>
               ))}
             </div>
-            <span className="example-note">{ar ? "مثال توضيحي — الحساب الحقيقي يبدأ من أرقامك." : "Illustrative example — your numbers replace the sample."}</span>
+            <span className="example-note">Scope is explicit; automation follows the purchased brief.</span>
           </aside>
         </div>
       </section>
 
-      <section id="how" className="how-section">
+      <section id="what-you-get" className="how-section">
         <div className="section-intro centered">
-          <span className="section-kicker">{t.howKicker}</span>
-          <h2>{t.howTitle}</h2>
+          <span className="section-kicker">{t.whatKicker}</span>
+          <h2>{t.whatTitle}</h2>
+          <p>{t.whatText}</p>
         </div>
         <div className="door-grid">
-          {t.howCards.map((card) => (
-            <article className="door-card" key={card[0]}>
-              <span className="door-num">{card[0]}</span>
-              <div><h3>{card[1]}</h3><p>{card[2]}</p></div>
+          {plans.map((plan) => (
+            <article className="door-card" key={plan.key}>
+              <span className="door-num">{plan.key === "AUDIT" ? "01" : plan.key === "INTEL" ? "02" : "03"}</span>
+              <div><h3>{t.planDescriptions[plan.key]}</h3><p>{t[plan.bestKey]}</p></div>
               <span className="door-arrow">↗</span>
             </article>
           ))}
@@ -356,154 +294,57 @@ export default function ProfitRescueHome() {
         </div>
 
         <div className="pricing-grid funnel-pricing-grid">
-          <article className="price-card free-price-card">
-            <span className="plan-tag">FREE</span>
-            <strong className="plan-price">$0</strong>
-            <h3>Profit Check</h3>
-            <div className="plan-features">
-              <span>✓ True profit / order</span>
-              <span>✓ Maximum CAC</span>
-              <span>✓ Break-even ROAS</span>
-            </div>
-            <a className="outline-btn" href="#diagnostic">{t.freePlan}</a>
-          </article>
-
-          {t.plans.map((plan) => {
-            const planKey = plan[0] as PaidPlan;
-            const isSelected = selectedPlan === planKey;
+          {plans.map((plan) => {
+            const isSelected = selectedPlan === plan.key;
             return (
-              <article
-                className={"price-card " + (planKey === "RESCUE" ? "featured" : "") + (isSelected ? " is-selected" : "")}
-                key={planKey}
-              >
-                {planKey === "RESCUE" && <span className="popular-ribbon">{t.popular}</span>}
-                <span className="plan-tag">{planKey}</span>
-                <strong className="plan-price">{plan[1]}</strong>
-                <h3>{plan[2]}</h3>
-                <div className="plan-features">{plan[3].map((f) => <span key={f}>✓ {f}</span>)}</div>
-                <button type="button" className={isSelected ? "primary-btn compact plan-choice" : "outline-btn plan-choice"} onClick={() => choosePlan(planKey)}>
-                  {isSelected ? (ar ? "الباقة المختارة" : "Selected") : t.selectPlan}
+              <article className={"price-card " + (isSelected ? "featured" : "")} key={plan.key} onClick={() => choosePlan(plan.key)}>
+                <span className="plan-tag">{plan.badge}</span>
+                <strong className="plan-price">{plan.price}</strong>
+                <span className="secure-chip" style={{ alignSelf: "flex-start", marginTop: 4 }}>ONE-TIME</span>
+                <h3>{t.planDescriptions[plan.key]}</h3>
+                <div className="plan-features">
+                  {t.planFeatures[plan.key].map((feature) => <span key={feature}>✓ {feature}</span>)}
+                </div>
+                <p className="plan-best-for"><strong>{t.bestFor}:</strong> {t[plan.bestKey]}</p>
+                <button className="outline-btn" type="button" onClick={() => choosePlan(plan.key)}>
+                  {isSelected ? t.selected + " · " + t.select : t.select}
                 </button>
               </article>
             );
           })}
         </div>
 
-        <div className="offer-funnel" aria-live="polite">
-          <div className="offer-visual">
-            <div className="offer-image-wrap">
-              <img src={planDetails[selectedPlan].image} alt="" />
-            </div>
+        <div className="selected-plan-shell">
+          <div>
+            <span className="section-kicker">{t.selected}</span>
+            <h3>{t.planDescriptions[selected.key]}</h3>
+            <p>{selected.price} • ONE-TIME</p>
           </div>
-          <div className="offer-copy">
-            <span className="section-kicker">{t.selectedPlan}</span>
-            <div className="offer-head">
-              <div>
-                <span className="plan-tag">{selectedPlan}</span>
-                <strong>{selected[1]}</strong>
-              </div>
-              <span className="offer-badge">{planDetails[selectedPlan].badge}</span>
-            </div>
-            <h3>{selected[2]}</h3>
-            <p><strong>{t.bestFor}:</strong> {t.planBestFor[selectedPlan]}</p>
-            <div className="offer-features">
-              {selected[3].map((f) => <span key={f}>✓ {f}</span>)}
-            </div>
-            <div className="offer-actions">
-              <a href={checkoutRoutes[selectedPlan]} className="primary-btn" target="_blank" rel="noopener noreferrer" onClick={beginCheckout}>
-                {t.secure}<span>↗</span>
-              </a>
-              <span>{t.secureNote}</span>
-            </div>
-            <p className="offer-note">{t.noNeed}</p>
-          </div>
+          <a className="primary-btn" href={checkoutRoutes[selected.key]} onClick={beginCheckout}>
+            {t.select}<span>↗</span>
+          </a>
         </div>
       </section>
 
-      <section id="b2b-data" className="pricing-section">
+      <section id="agents" className="how-section">
         <div className="section-intro centered">
-          <span className="section-kicker">B2B DATA OPERATIONS</span>
-          <h2>Need a usable B2B contact dataset?</h2>
-          <p>One fixed-scope service: give us up to 100 company websites, and receive a cleaned, source-traceable contact dataset.</p>
-        </div>
-        <div className="offer-funnel" aria-label="B2B contact research offer">
-          <div className="offer-visual">
-            <div className="offer-image-wrap">
-              <div className="offer-badge">UP TO 100 COMPANIES</div>
-              <div style={{fontSize:"clamp(38px,6vw,64px)",fontWeight:900,letterSpacing:"-.05em",lineHeight:1}}>$249</div>
-              <div style={{marginTop:"8px",fontSize:"12px",fontWeight:800,letterSpacing:".08em",color:"#a5b4c7"}}>USD · ONE-TIME</div>
-              <p style={{marginTop:"18px",color:"#94a3b8",lineHeight:1.7}}>Public-source research, deduplication, and traceable source URLs.</p>
-            </div>
-          </div>
-          <div className="offer-copy">
-            <span className="section-kicker">FIXED-SCOPE SERVICE</span>
-            <h3>100-Company B2B Contact Research</h3>
-            <p>Send up to 100 company websites. We return a clean dataset with public business contacts when available.</p>
-            <div className="offer-features">
-              <span>✓ Company name + website</span>
-              <span>✓ Public email, phone, address, social or LinkedIn when available</span>
-              <span>✓ Deduplication + source URL for traceability</span>
-              <span>✓ CSV / JSON delivery</span>
-              <span>✓ No guessed or fabricated contact details</span>
-              <span>✓ Automated processing starts immediately after a complete brief</span>
-            </div>
-            <div className="offer-actions">
-              <a className="primary-btn" href="/api/checkout?plan=LEADS" id="b2b-home-cta">Start B2B Research — $249 <span>↗</span></a>
-              <span>Pay once. Then submit your target list and research brief.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="website-audit" className="pricing-section">
-        <div className="section-intro centered">
-          <span className="section-kicker">WEBSITE AUDIT</span>
-          <h2>Website SEO + AI Visibility Audit</h2>
-          <p>One-time, client-ready audit covering technical SEO, content, Core Web Vitals, AEO and GEO readiness.</p>
-        </div>
-        <div className="offer-funnel" aria-label="Website SEO and AI visibility audit offer">
-          <div className="offer-visual">
-            <div className="offer-image-wrap">
-              <div className="offer-badge">ONE-TIME · PDF DELIVERY</div>
-              <div style={{fontSize:"clamp(42px,7vw,68px)",fontWeight:900,letterSpacing:"-.05em",lineHeight:1}}>$59</div>
-              <div style={{marginTop:"8px",fontSize:"12px",fontWeight:800,letterSpacing:".08em",color:"#a5b4c7"}}>USD · NO SUBSCRIPTION</div>
-            </div>
-          </div>
-          <div className="offer-copy">
-            <span className="section-kicker">AUTOMATED FULFILLMENT</span>
-            <h3>Audit any public website</h3>
-            <p>After payment, submit one website you own, manage, or have permission to audit. The fulfillment engine runs the audit and returns a branded-ready PDF.</p>
-            <div className="offer-features">
-              <span>✓ 60+ technical and on-page checks</span>
-              <span>✓ Core Web Vitals / performance signals</span>
-              <span>✓ AEO + GEO readiness scoring</span>
-              <span>✓ Prioritized warnings and failures</span>
-              <span>✓ Client-ready PDF delivery</span>
-              <span>✓ No account or vendor subscription required for fulfillment</span>
-            </div>
-            <div className="offer-actions">
-              <a className="primary-btn" href="/api/checkout?plan=AUDIT" id="website-audit-cta">Get the Website Audit — $59 <span>↗</span></a>
-              <span>Pay once. Then submit the site and generate the report.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="agents" className="agents-section">
-        <div className="agents-copy">
           <span className="section-kicker">{t.agentsKicker}</span>
           <h2>{t.agentsTitle}</h2>
           <p>{t.agentsText}</p>
-          <div className="agent-chips"><span>x402</span><span>USDC</span><span>JSON</span><span>API</span></div>
         </div>
-        <pre className="json-card"><code>{t.agentsCode}</code></pre>
+        <div className="doctor-demo" style={{ maxWidth: 860, margin: "0 auto" }}>
+          <div className="demo-header"><span>NOVA SERVICE PRIMITIVES</span><b>JSON</b></div>
+          <div className="demo-row"><span className="demo-tag">WEB</span><div><strong>web-research / company-intelligence</strong><small>Source-backed public web evidence</small></div><b>INTEL</b></div>
+          <div className="demo-row"><span className="demo-tag">DATA</span><div><strong>url-to-json / data-transform</strong><small>Structured extraction and normalization</small></div><b>INTEL</b></div>
+          <div className="demo-row"><span className="demo-tag">B2B</span><div><strong>contact-batch</strong><small>Public business contact extraction</small></div><b>PROSPECTS</b></div>
+        </div>
       </section>
 
       <section className="final-cta">
-        <span className="section-kicker">{t.finalKicker}</span>
-        <h2>{t.finalTitle}<br /><span>{t.finalAccent}</span></h2>
+        <span className="section-kicker">BIG TICKETS ONLY</span>
+        <h2>{t.finalTitle}</h2>
         <p>{t.finalText}</p>
-        <a className="primary-btn" href="#diagnostic">{t.finalCta}<span>↗</span></a>
+        <a className="primary-btn" href="#pricing">{t.finalCta}<span>↗</span></a>
       </section>
 
       <footer className="nova-footer">
