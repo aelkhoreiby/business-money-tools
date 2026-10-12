@@ -6,9 +6,23 @@ import GoogleAnalytics from "./components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
-  title: "Profit Rescue AI — The Ecommerce Store Doctor",
-  description: "AI-powered ecommerce profit intelligence: find profit leaks, protect CAC, diagnose store economics, and know what to fix next.",
-  keywords: ["ecommerce profit", "AI ecommerce", "profit calculator", "CAC", "ROAS", "RTO", "Saudi ecommerce", "UAE ecommerce"],
+  metadataBase: new URL("https://business-money-tools.vercel.app"),
+  title: "Free Ecommerce Profit Calculator | Profit Rescue AI",
+  description: "Calculate net profit per order, profit margin, maximum CAC, break-even ROAS, and break-even price with the free ecommerce profit calculator.",
+  keywords: [
+    "ecommerce profit calculator",
+    "profit margin calculator",
+    "break-even ROAS calculator",
+    "maximum CAC calculator",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Free Ecommerce Profit Calculator | Profit Rescue AI",
+    description: "Find your real profit per order, maximum CAC, and break-even ROAS before increasing ad spend.",
+    url: "https://business-money-tools.vercel.app/",
+    siteName: "Profit Rescue AI",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
