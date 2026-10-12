@@ -1,0 +1,27 @@
+# Profit Rescue AI
+
+> Business decision intelligence and public-data research. The site provides a free ecommerce profit calculator and lists three one-time research services.
+
+Website: https://business-money-tools.vercel.app/
+Calculator: https://business-money-tools.vercel.app/tools/ecommerce-profit-calculator
+Agent manifest: https://business-money-tools.vercel.app/.well-known/agent.json
+Machine-readable catalog: https://business-money-tools.vercel.app/api/catalog
+OpenAPI document: https://business-money-tools.vercel.app/api/openapi.json
+
+## Human-facing offers
+
+- AI Visibility & Revenue Leak Audit — listed price: USD 499, one-time.
+- Multi-Source Business Intelligence / Data Extraction — listed price: USD 999, one-time.
+- B2B Prospect Intelligence Pack — listed price: USD 1499, one-time.
+
+Prices describe the site's listed offers, not proof of a completed payment or delivery. Checkout availability and fulfillment must be confirmed for each order.
+
+## Machine-to-machine status
+
+- The company-intelligence endpoint is reserved at POST /api/v1/intel/company.
+- The endpoint currently returns HTTP 503 with API_NOT_ENABLED.
+- The endpoint does not return mock company records, and it does not initiate a charge.
+- Machine execution, API-key issuance, usage metering, payment, and independently verifiable settlement are not yet enabled.
+- API service prices are intentionally unpublished until execution and payment are connected and tested.
+
+Agents should fetch /api/catalog before attempting any service. Do not treat a planned service as purchasable or rely on it for production workflows yet.
