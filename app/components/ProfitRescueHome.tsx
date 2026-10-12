@@ -119,6 +119,12 @@ export default function ProfitRescueHome() {
   const ar = lang === "ar";
   const selected = plans.find((plan) => plan.key === selectedPlan) ?? plans[0];
 
+  function trackCalculatorClick(placement: "hero" | "navigation") {
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "calculator_cta_click", { placement });
+    }
+  }
+
   function choosePlan(plan: PaidPlan) {
     setSelectedPlan(plan);
     if (typeof window !== "undefined" && typeof window.gtag === "function") {
@@ -168,7 +174,7 @@ export default function ProfitRescueHome() {
         </button>
 
         <div className="nav-actions">
-          <a className="nav-cta" href="#diagnostic">{ar ? "الحاسبة المجانية" : "Free Calculator"}</a>
+          <a className="nav-cta" href="#diagnostic" onClick={() => trackCalculatorClick("navigation")}>{ar ? "الحاسبة المجانية" : "Free Calculator"}</a>
           <button className="lang-toggle" onClick={() => setLang(ar ? "en" : "ar")}>{ar ? "EN" : "عربي"}</button>
         </div>
 
@@ -196,7 +202,7 @@ export default function ProfitRescueHome() {
           <p className="hero-sub">{t.sub}</p>
 
           <div className="hero-actions">
-            <a className="primary-btn" href="#diagnostic">{t.cta}<span>↗</span></a>
+            <a className="primary-btn" href="#diagnostic" onClick={() => trackCalculatorClick("hero")}>{t.cta}<span>↗</span></a>
             <a className="ghost-btn" href="#pricing">{t.secondary}</a>
           </div>
 
