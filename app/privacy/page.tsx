@@ -3,6 +3,7 @@ import Link from "next/link";
 export const metadata = {
   title: "سياسة الخصوصية | Business & Money Tools",
   description: "سياسة الخصوصية لموقع Business & Money Tools.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

@@ -3,6 +3,7 @@ import Link from "next/link";
 export const metadata = {
   title: "عن Business & Money Tools",
   description: "تعرف على Business & Money Tools ومنهجنا في بناء أدوات مالية وتجارية مجانية ومفيدة.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

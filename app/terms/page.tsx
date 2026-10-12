@@ -3,6 +3,7 @@ import Link from "next/link";
 export const metadata = {
   title: "الشروط والأحكام | Business & Money Tools",
   description: "الشروط والأحكام العامة لاستخدام Business & Money Tools.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {
