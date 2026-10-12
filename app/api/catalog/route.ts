@@ -37,6 +37,32 @@ const upstreamPaidServices = [
     runtime_payment_challenge_verified: false,
   },
   {
+    id: "contact-extract",
+    provider: "NOVA Demand Worker",
+    method: "POST",
+    endpoint: "https://nova-demand-worker.vercel.app/x402/contact-extract",
+    input_example: { url: "https://example.com" },
+    payment: { protocol: "x402", scheme: "exact", network: "eip155:8453", asset: "USDC" },
+    code_default_price_usd: 0.005,
+    price_unit: "per_request",
+    deployment_status: "production_deployment_ready",
+    runtime_payment_challenge_verified: true,
+    last_challenge_tested_at: "2026-10-13",
+    last_challenge_test: {
+      http_status: 402,
+      scheme: "exact",
+      network: "eip155:8453",
+      asset: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      asset_symbol: "USDC",
+      amount_atomic_units: "5000",
+      amount_display_usdc: "0.005",
+      max_timeout_seconds: 300,
+      payment_signature_sent: false,
+      payment_response_header_received: false,
+      settlement_verified: false,
+    },
+  },
+  {
     id: "web-research",
     provider: "NOVA Demand Worker",
     method: "POST",
@@ -83,10 +109,21 @@ export async function GET() {
       ok: true,
       schema_version: "1.1",
       brand: "Profit Rescue AI",
-      status: "discovery_and_url_to_json_challenge_verified_settlement_unverified",
+      status: "discovery_and_two_payment_challenges_verified_marketplace_canary_settled_customer_revenue_unverified",
       generated_at: new Date().toISOString(),
       human_offers: humanOffers,
       upstream_paid_services: upstreamPaidServices,
+      marketplace_canary_evidence: {
+        "provider": "PayAPI Market",
+        "listing_url": "https://payapi.market/api/nova-url-to-json",
+        "service": "nova-url-to-json",
+        "transaction_type": "marketplace_canary",
+        "amount_usdc": 0.01,
+        "network": "eip155:8453",
+        "tx_hash": "0x5453ba9848d6c10b7fce1d11cc285e7b91fd066654798b7f4446a59c8f5f3d9a",
+        "verified_at": "2026-09-20T21:58:53Z",
+        "customer_revenue_proof": false
+},
       bmt_local_api_services: [
         {
           id: "company-intelligence",
@@ -100,7 +137,7 @@ export async function GET() {
       pricing_note:
         "NOVA prices shown here are source-code defaults and may be overridden by deployment configuration. The live x402 payment challenge is authoritative. This catalog does not claim that a payment or settlement has been tested.",
       revenue_proof_rule:
-        "A route, catalog item, successful build, or HTTP 402 challenge is not revenue proof. Verify an independent buyer, execution/delivery, payment, and settlement.",
+        "A route, catalog item, HTTP 402 challenge, or marketplace canary settlement is not customer revenue proof. Verify an independent buyer, execution/delivery, payment, and settlement.",
     },
     { headers: { "Cache-Control": "no-store" } },
   );

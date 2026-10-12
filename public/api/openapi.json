@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Profit Rescue AI Discovery and NOVA Machine APIs",
-    "version": "0.2.0",
-    "description": "BMT discovery/catalog plus direct x402 routes in the NOVA production deployment. Prices below are code defaults only; runtime x402 payment requirements are authoritative. BMT's own company-intelligence endpoint is planned and intentionally unavailable."
+    "version": "0.3.0",
+    "description": "BMT discovery/catalog plus direct x402 routes in the NOVA production deployment. Prices shown are code defaults only; live x402 requirements are authoritative. BMT-local company-intelligence is planned and unavailable. Marketplace-canary settlement evidence is not customer revenue proof."
   },
   "servers": [
     {
@@ -370,6 +370,90 @@
           }
         }
       }
+    },
+    "/x402/contact-extract": {
+      "post": {
+        "servers": [
+          {
+            "url": "https://nova-demand-worker.vercel.app",
+            "description": "NOVA upstream x402 endpoint"
+          }
+        ],
+        "operationId": "novaContactExtract",
+        "summary": "Extract public business contact details from one public website",
+        "description": "Extract public business emails, phone numbers, and social profiles for B2B lead generation and CRM enrichment. The endpoint has a live x402 payment challenge; the challenge, not this listed default, defines the amount. An unsigned challenge test is not proof of completed payment or settlement.",
+        "x-payment-info": {
+          "protocol": "x402",
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "asset": "USDC",
+          "code_default_price_usd": 0.005,
+          "price_unit": "per_request",
+          "runtime_challenge_authoritative": true,
+          "last_unsigned_challenge_tested_at": "2026-10-13",
+          "unsigned_challenge_verified": true,
+          "settlement_verified": false
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "url"
+                ],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Public HTTP or HTTPS business website URL"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "example": {
+                "url": "https://example.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Normalized public business contact information returned after successful execution and payment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "402": {
+            "description": "x402 payment challenge; verify amount, network, and asset before signing"
+          },
+          "422": {
+            "description": "The requested extraction failed"
+          },
+          "503": {
+            "description": "Payment service temporarily unavailable"
+          }
+        }
+      }
     }
+  },
+  "x-marketplace-canary-evidence": {
+    "provider": "PayAPI Market",
+    "listing_url": "https://payapi.market/api/nova-url-to-json",
+    "service": "nova-url-to-json",
+    "transaction_type": "marketplace_canary",
+    "amount_usdc": 0.01,
+    "network": "eip155:8453",
+    "tx_hash": "0x5453ba9848d6c10b7fce1d11cc285e7b91fd066654798b7f4446a59c8f5f3d9a",
+    "verified_at": "2026-09-20T21:58:53Z",
+    "customer_revenue_proof": false
   }
 }

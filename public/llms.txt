@@ -21,6 +21,7 @@ BMT's own POST /api/v1/intel/company path is reserved and currently returns HTTP
 The existing NOVA production deployment contains x402-protected machine API routes:
 - Company intelligence: POST https://nova-demand-worker.vercel.app/x402/company-intelligence — code-default price USD 0.25 per request; one public website URL.
 - Contact batch: POST https://nova-demand-worker.vercel.app/x402/contact-batch — code-default price USD 0.50 per request for 1–100 public website URLs.
+- B2B Contact Extract: POST https://nova-demand-worker.vercel.app/x402/contact-extract — code-default price USD 0.005 per public website URL; the live x402 challenge defines the actual price.
 - Web research: POST https://nova-demand-worker.vercel.app/x402/web-research — code-default price USD 0.05 per request for up to 10 URLs.
 - URL-to-JSON: POST https://nova-demand-worker.vercel.app/x402/url-to-json — code-default price USD 0.01 per request.
 
@@ -28,3 +29,6 @@ These prices come from NOVA source code and may be overridden by deployment envi
 
 ## Revenue-proof boundary
 A route, catalog entry, 402 challenge, or successful build is not revenue proof. Revenue proof requires an independent buyer, execution and delivery, payment, and independently verifiable settlement.
+
+## Settlement evidence boundary
+PayAPI Market lists NOVA URL-to-JSON with a marketplace-canary settlement record (0.01 USDC on Base, transaction 0x5453ba9848d6c10b7fce1d11cc285e7b91fd066654798b7f4446a59c8f5f3d9a, verified 2026-09-20). This is marketplace verification, not a customer sale. The NOVA contact-extract challenge was tested unsigned on 2026-10-13; no payment signature or settlement was produced in that test. No independent customer revenue is currently claimed.
