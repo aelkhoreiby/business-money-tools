@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "كيف تحسب Maximum CAC لمتجر إلكتروني | Business & Money Tools",
   description: "شرح عملي لحساب أقصى تكلفة اكتساب للطلب قبل أن تتحول الحملة إلى خسارة.",
-  alternates: { canonical: "/guides/maximum-cac-for-ecommerce/" },
+  alternates: { canonical: "/guides/maximum-cac-for-ecommerce" },
 };
 
 export default function GuidePage() {
