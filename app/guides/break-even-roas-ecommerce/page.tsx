@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Break-even ROAS للتجارة الإلكترونية | Business & Money Tools",
   description: "ما هو Break-even ROAS وكيف تربطه بهامش المساهمة وCAC بدل الاعتماد على ROAS وحده؟",
-  alternates: { canonical: "/guides/break-even-roas-ecommerce/" },
+  alternates: { canonical: "/guides/break-even-roas-ecommerce" },
 };
 
 export default function GuidePage() {
