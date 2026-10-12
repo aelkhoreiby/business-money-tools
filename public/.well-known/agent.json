@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "name": "Profit Rescue AI",
+  "description": "Business decision intelligence and public-data research. Machine-readable discovery is available; metered service execution is not enabled yet.",
+  "website": "https://business-money-tools.vercel.app/",
+  "discovery": {
+    "catalog_url": "https://business-money-tools.vercel.app/api/catalog",
+    "openapi_url": "https://business-money-tools.vercel.app/api/openapi.json",
+    "llms_txt_url": "https://business-money-tools.vercel.app/llms.txt"
+  },
+  "machine_services": [
+    {
+      "id": "company-intelligence",
+      "method": "POST",
+      "endpoint": "https://business-money-tools.vercel.app/api/v1/intel/company",
+      "status": "planned",
+      "live": false,
+      "input_content_type": "application/json",
+      "example_input": {
+        "domains": [
+          "example.com"
+        ]
+      },
+      "pricing": {
+        "model": "metered",
+        "currency": "USD",
+        "status": "not_configured",
+        "unit_price": null
+      },
+      "payment": {
+        "status": "not_enabled",
+        "protocol": null
+      },
+      "note": "The endpoint currently returns HTTP 503 API_NOT_ENABLED. No mock data is returned and no charge is initiated."
+    }
+  ],
+  "human_offers": [
+    {
+      "id": "AUDIT",
+      "name": "AI Visibility & Revenue Leak Audit",
+      "price_usd": 499,
+      "billing": "one_time"
+    },
+    {
+      "id": "INTEL",
+      "name": "Multi-Source Business Intelligence / Data Extraction",
+      "price_usd": 999,
+      "billing": "one_time"
+    },
+    {
+      "id": "PROSPECTS",
+      "name": "B2B Prospect Intelligence Pack",
+      "price_usd": 1499,
+      "billing": "one_time"
+    }
+  ],
+  "safety_and_truthfulness": {
+    "no_mock_data": true,
+    "no_payment_claim_without_settlement_proof": true,
+    "machine_execution_ready": false
+  }
+}
