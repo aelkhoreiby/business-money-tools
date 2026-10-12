@@ -10,15 +10,15 @@ const copy = {
   en: {
     nav: ["Diagnostic", "What you get", "Big Tickets", "For AI Agents"],
     badge: "PROFIT RESCUE AI • DECISION INTELLIGENCE",
-    title1: "Stop selling small fixes.",
-    title2: "Sell decision-ready intelligence.",
-    sub: "Three high-value offers built around real business problems: AI visibility and revenue leaks, multi-source intelligence, and B2B prospect intelligence.",
-    cta: "See the 3 Big Tickets",
-    secondary: "Run free diagnostic",
+    title1: "Stop guessing about your profit.",
+    title2: "Turn confusing numbers into clear decisions.",
+    sub: "Use the free ecommerce profit calculator to see net profit per order, margin, maximum CAC, break-even ROAS, and break-even price. When the numbers reveal a bigger problem, explore our three evidence-backed business intelligence services.",
+    cta: "Try Free Profit Calculator",
+    secondary: "Explore the 3 paid services",
     trust: "One-time delivery • Source-backed • Public-data first",
     freeKicker: "FREE ENTRY POINT",
-    freeTitle: "Use the calculator to surface the pain.",
-    freeText: "The free Profit Check identifies order-level economics. When the problem is bigger than a calculator, move the buyer into one of the three Big Tickets.",
+    freeTitle: "Free Ecommerce Profit Calculator",
+    freeText: "Calculate net profit per order, net margin, maximum customer acquisition cost (CAC), break-even return on ad spend (ROAS), and break-even price. Test your own order economics before increasing ad spend.",
     whatKicker: "ONE ENGINE • THREE HIGH-VALUE OUTCOMES",
     whatTitle: "Each ticket owns a business problem.",
     whatText: "No feature bundles. No fake recurring plan. Each purchase maps to a concrete research or intelligence deliverable.",
@@ -52,15 +52,15 @@ const copy = {
   ar: {
     nav: ["التشخيص", "المخرجات", "الباقات", "لوكلاء الذكاء الاصطناعي"],
     badge: "PROFIT RESCUE AI • ذكاء القرار",
-    title1: "نوقف بيع الحلول الصغيرة.",
-    title2: "ونبيع ذكاء جاهزًا للقرار.",
-    sub: "ثلاث خدمات High-Ticket فقط: كشف مشاكل الظهور بالـAI وتسريب الإيراد، Business Intelligence واستخراج البيانات، وB2B Prospect Intelligence.",
-    cta: "شاهد الباقات الثلاث",
-    secondary: "ابدأ الفحص المجاني",
+    title1: "بطل تخمين ربحك.",
+    title2: "حوّل أرقامك لقرارات واضحة.",
+    sub: "استخدم حاسبة ربح المتجر المجانية لحساب صافي ربح الطلب والهامش وأقصى CAC وROAS التعادل وسعر التعادل. وعندما تكشف الأرقام مشكلة أكبر، استكشف خدمات ذكاء الأعمال الثلاث.",
+    cta: "جرّب حاسبة الربح المجانية",
+    secondary: "استكشف الخدمات المدفوعة",
     trust: "شراء مرة واحدة • بيانات بمصادر • Public-data first",
     freeKicker: "مدخل مجاني",
-    freeTitle: "استخدم الحاسبة لإظهار المشكلة.",
-    freeText: "Profit Check تكشف اقتصاديات الطلب. عندما تكون المشكلة أكبر من حاسبة، ننقل العميل إلى واحدة من الباقات الثلاث.",
+    freeTitle: "حاسبة ربح المتجر الإلكتروني المجانية",
+    freeText: "احسب صافي ربح الطلب والهامش وأقصى تكلفة اكتساب للطلب (CAC) وROAS التعادل وسعر التعادل. اختبر اقتصاديات البيع قبل زيادة الإنفاق الإعلاني.",
     whatKicker: "محرك واحد • ثلاث نتائج عالية القيمة",
     whatTitle: "كل باقة تملك مشكلة تجارية واضحة.",
     whatText: "لا تجميع Features. لا اشتراكات وهمية. كل شراء مرتبط بمخرج بحث أو Intelligence محدد.",
@@ -168,7 +168,7 @@ export default function ProfitRescueHome() {
         </button>
 
         <div className="nav-actions">
-          <a className="nav-cta" href="#pricing">{ar ? "الباقات" : "Big Tickets"}</a>
+          <a className="nav-cta" href="#diagnostic">{ar ? "الحاسبة المجانية" : "Free Calculator"}</a>
           <button className="lang-toggle" onClick={() => setLang(ar ? "en" : "ar")}>{ar ? "EN" : "عربي"}</button>
         </div>
 
@@ -196,8 +196,8 @@ export default function ProfitRescueHome() {
           <p className="hero-sub">{t.sub}</p>
 
           <div className="hero-actions">
-            <a className="primary-btn" href="#pricing">{t.cta}<span>↗</span></a>
-            <a className="ghost-btn" href="#diagnostic">{t.secondary}</a>
+            <a className="primary-btn" href="#diagnostic">{t.cta}<span>↗</span></a>
+            <a className="ghost-btn" href="#pricing">{t.secondary}</a>
           </div>
 
           <div className="trust-line">
