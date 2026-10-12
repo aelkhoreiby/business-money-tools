@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "حاسبة أقصى CAC | Maximum CAC Calculator للتجارة الإلكترونية",
   description:
     "احسب أقصى CAC يمكنك دفعه لكل طلب قبل الوصول إلى نقطة التعادل، مع صافي الربح والهامش وROAS التعادل.",
-  alternates: { canonical: "/tools/maximum-cac-calculator/" },
+  alternates: { canonical: "/tools/maximum-cac-calculator" },
 };
 
 export default function MaximumCacPage() {
