@@ -93,7 +93,21 @@
         "url": "https://example.com"
       },
       "deployment_status": "production_deployment_ready",
-      "runtime_payment_challenge_verified": false
+      "runtime_payment_challenge_verified": true,
+      "last_challenge_tested_at": "2026-10-13",
+      "last_challenge_test": {
+        "http_status": 402,
+        "scheme": "exact",
+        "network": "eip155:8453",
+        "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "asset_symbol": "USDC",
+        "amount_atomic_units": "10000",
+        "amount_display_usdc": "0.01",
+        "max_timeout_seconds": 300,
+        "payment_signature_sent": false,
+        "payment_response_header_received": false,
+        "settlement_verified": false
+      }
     }
   ],
   "bmt_local_api_services": [
@@ -135,6 +149,14 @@
     "no_mock_data": true,
     "no_payment_claim_without_settlement_proof": true,
     "bmt_local_machine_api_ready": false,
-    "nova_runtime_payment_challenge_verified": false
+    "nova_runtime_payment_challenge_verified": false,
+    "nova_url_to_json_challenge_verified": true,
+    "nova_runtime_settlement_verified": false
+  },
+  "runtime_test_evidence": {
+    "test_date": "2026-10-13",
+    "endpoint": "https://nova-demand-worker.vercel.app/x402/url-to-json",
+    "result": "Unsigned POST returned HTTP 402 and PAYMENT-REQUIRED challenge; no payment signature was sent.",
+    "settlement_verified": false
   }
 }
