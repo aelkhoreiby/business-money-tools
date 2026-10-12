@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: "الربح الحقيقي للمتجر مقابل ROAS | دليل التجارة الإلكترونية",
   description:
     "دليل مبسط لفهم الفرق بين ROAS وربح الطلب الحقيقي، وكيف تدخل تكلفة المنتج والشحن والرسوم والمرتجعات وCAC في القرار.",
-  alternates: { canonical: "/guides/ecommerce-profit-vs-roas/" },
+  alternates: { canonical: "/guides/ecommerce-profit-vs-roas" },
 };
 
 export default function GuidePage() {
