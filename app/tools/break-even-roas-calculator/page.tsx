@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "حاسبة Break-even ROAS | ROAS التعادل للتجارة الإلكترونية",
   description:
     "احسب ROAS التعادل وأقصى CAC وربح الطلب بعد تكلفة المنتج والشحن والرسوم والخصومات والمرتجعات.",
-  alternates: { canonical: "/tools/break-even-roas-calculator/" },
+  alternates: { canonical: "/tools/break-even-roas-calculator" },
 };
 
 const faq = [
