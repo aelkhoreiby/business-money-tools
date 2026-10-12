@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "احسب صافي ربح الطلب، هامش الربح، أقصى CAC، وBreak-even ROAS بعد تكلفة المنتج والشحن والرسوم والخصومات والمرتجعات.",
   alternates: {
-    canonical: "/tools/ecommerce-profit-calculator/",
+    canonical: "/tools/ecommerce-profit-calculator",
   },
   openGraph: {
     title: "حاسبة ربح المتجر الإلكتروني",
