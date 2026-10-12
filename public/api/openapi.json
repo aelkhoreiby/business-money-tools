@@ -1,0 +1,137 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Profit Rescue AI Machine API",
+    "version": "0.1.0",
+    "description": "Discovery-first API contract. The catalog is live. Company intelligence is reserved but not enabled; it returns HTTP 503 until real execution, authentication, usage metering, payment, and settlement are connected."
+  },
+  "servers": [
+    {
+      "url": "https://business-money-tools.vercel.app"
+    }
+  ],
+  "paths": {
+    "/api/catalog": {
+      "get": {
+        "operationId": "getMachineServiceCatalog",
+        "summary": "Get current offers and machine-service readiness",
+        "responses": {
+          "200": {
+            "description": "Catalog of human-facing offers and machine API availability",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "api_services",
+                    "human_offers"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "api_services": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "human_offers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "warning": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/intel/company": {
+      "post": {
+        "operationId": "companyIntelligence",
+        "summary": "Reserved company-intelligence endpoint (not enabled)",
+        "description": "This endpoint currently responds with HTTP 503 API_NOT_ENABLED. It returns no placeholder company records and does not initiate a charge. Do not use it in production workflows until the catalog reports it as live.",
+        "x-lifecycle": "planned",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "domains"
+                ],
+                "properties": {
+                  "domains": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 100,
+                    "items": {
+                      "type": "string",
+                      "format": "hostname",
+                      "examples": [
+                        "example.com"
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "503": {
+            "description": "Service is intentionally unavailable until execution and payment controls are implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "error_code",
+                    "charge_incurred"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "const": false
+                    },
+                    "error_code": {
+                      "type": "string",
+                      "const": "API_NOT_ENABLED"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "service": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "charge_incurred": {
+                      "type": "boolean",
+                      "const": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
