@@ -1,0 +1,30 @@
+# Profit Rescue AI
+
+> Business decision intelligence, public-data research, and machine-readable discovery for autonomous agents.
+
+Website: https://business-money-tools.vercel.app/
+Free ecommerce calculator: https://business-money-tools.vercel.app/tools/ecommerce-profit-calculator
+Agent manifest: https://business-money-tools.vercel.app/.well-known/agent.json
+Catalog: https://business-money-tools.vercel.app/api/catalog
+OpenAPI: https://business-money-tools.vercel.app/api/openapi.json
+
+## Human-facing offers
+- AI Visibility & Revenue Leak Audit — listed price USD 499, one-time.
+- Multi-Source Business Intelligence / Data Extraction — listed price USD 999, one-time.
+- B2B Prospect Intelligence Pack — listed price USD 1499, one-time.
+
+Listed offers are not proof that checkout, payment, or fulfillment has completed; verify each order.
+
+## Machine-to-machine APIs
+BMT's own POST /api/v1/intel/company path is reserved and currently returns HTTP 503 API_NOT_ENABLED. It does not return mock records or initiate a charge.
+
+The existing NOVA production deployment contains x402-protected machine API routes:
+- Company intelligence: POST https://nova-demand-worker.vercel.app/x402/company-intelligence — code-default price USD 0.25 per request; one public website URL.
+- Contact batch: POST https://nova-demand-worker.vercel.app/x402/contact-batch — code-default price USD 0.50 per request for 1–100 public website URLs.
+- Web research: POST https://nova-demand-worker.vercel.app/x402/web-research — code-default price USD 0.05 per request for up to 10 URLs.
+- URL-to-JSON: POST https://nova-demand-worker.vercel.app/x402/url-to-json — code-default price USD 0.01 per request.
+
+These prices come from NOVA source code and may be overridden by deployment environment variables. The live x402 payment challenge is authoritative. Use an x402-capable client, inspect amount/network/asset before signing, and verify the returned result. This documentation does not claim that a live payment or external settlement was completed.
+
+## Revenue-proof boundary
+A route, catalog entry, 402 challenge, or successful build is not revenue proof. Revenue proof requires an independent buyer, execution and delivery, payment, and independently verifiable settlement.
